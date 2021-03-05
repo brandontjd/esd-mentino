@@ -39,11 +39,16 @@ For development stage, may I propose the following workflow
 4. Copy boilerplate.py and start coding your flask application
 5. Read through the comments inside the boilerplate.py
 6. Rename boilerplate.py
-7. Code away
-8. Do localtesting to see if the result match the ones in this document - https://docs.google.com/document/d/1d8As63xcdk4aqrj6KGk09ldf6mHhyf9gIPqCwaMLLaM/edit
+7. Create a new folder, slot your python script inside and Code away
+8. Do localtesting to see if the result match the ones in this document - https://docs.google.com/document/d/1d8As63xcdk4aqrj6KGk09ldf6mHhyf9gIPqCwaMLLaM/edit 
 9. If all good, create request to merge branch into main
 10. Message someone to do peer review 
 11. If all good, peer reviewer please merge into main branch
+
+Local Testing
+1. Open postman and create new collection for your microservice
+2. Create new requests and test 
+3. Save your requests, and push your collection together for the Peer Reviewer to do testing 
 
 Preparation of backend production ready docker-compose
 - To be confirmed
