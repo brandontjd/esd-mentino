@@ -268,4 +268,4 @@ def create_new_bubble():
 if __name__ == "__main__":
     # There are multiple addresses on machine
     # 0.0.0.0 means machine is listening on all the ports
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5002, debug=True)

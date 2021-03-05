@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble_details/one/1",
+					"raw": "http://0.0.0.0:5002/bubble_details/one/1",
 					"protocol": "http",
 					"host": [
 						"0",
@@ -19,7 +19,7 @@
 						"0",
 						"0"
 					],
-					"port": "5000",
+					"port": "5002",
 					"path": [
 						"bubble_details",
 						"one",
@@ -35,7 +35,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble_details/all",
+					"raw": "http://0.0.0.0:5002/bubble_details/all",
 					"protocol": "http",
 					"host": [
 						"0",
@@ -43,7 +43,7 @@
 						"0",
 						"0"
 					],
-					"port": "5000",
+					"port": "5002",
 					"path": [
 						"bubble_details",
 						"all"
@@ -78,7 +78,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble_details/comment",
+					"raw": "http://0.0.0.0:5002/bubble_details/comment",
 					"protocol": "http",
 					"host": [
 						"0",
@@ -86,7 +86,7 @@
 						"0",
 						"0"
 					],
-					"port": "5000",
+					"port": "5002",
 					"path": [
 						"bubble_details",
 						"comment"
@@ -121,7 +121,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble_details/comment",
+					"raw": "http://0.0.0.0:5002/bubble_details/comment",
 					"protocol": "http",
 					"host": [
 						"0",
@@ -129,7 +129,7 @@
 						"0",
 						"0"
 					],
-					"port": "5000",
+					"port": "5002",
 					"path": [
 						"bubble_details",
 						"comment"
@@ -180,7 +180,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble_details/one",
+					"raw": "http://0.0.0.0:5002/bubble_details/one",
 					"protocol": "http",
 					"host": [
 						"0",
@@ -188,7 +188,7 @@
 						"0",
 						"0"
 					],
-					"port": "5000",
+					"port": "5002",
 					"path": [
 						"bubble_details",
 						"one"
@@ -238,7 +238,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble_details/one",
+					"raw": "http://0.0.0.0:5002/bubble_details/one",
 					"protocol": "http",
 					"host": [
 						"0",
@@ -246,7 +246,7 @@
 						"0",
 						"0"
 					],
-					"port": "5000",
+					"port": "5002",
 					"path": [
 						"bubble_details",
 						"one"
@@ -301,7 +301,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble_details/one",
+					"raw": "http://0.0.0.0:5002/bubble_details/one",
 					"protocol": "http",
 					"host": [
 						"0",
@@ -309,7 +309,7 @@
 						"0",
 						"0"
 					],
-					"port": "5000",
+					"port": "5002",
 					"path": [
 						"bubble_details",
 						"one"
