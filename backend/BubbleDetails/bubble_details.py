@@ -143,10 +143,12 @@ def add_delete_comment():
     """
     # Adding
     if request.method == 'POST':
-        bubble_id = request.form['bubble_id']
-        email = request.form['email']
+        json_payload = request.get_json()
+        bubble_id = json_payload['bubble_id']
+        email = json_payload['email']
         current_datetime = datetime.now().timestamp()
-        comment = request.form['comment']
+        comment = json_payload['comment']
+        print(bubble_id)
         try:
             new_comment = BubbleComment(bubble_id, email,current_datetime, comment)
             db.session.add(new_comment)
@@ -161,15 +163,16 @@ def add_delete_comment():
                 "message": "Failed to add comment"
             }), 404
     elif request.method == 'DELETE':
-        bubble_id = request.form['bubble_id']
-        email = request.form['email']
-        timestamp = request.form['timestamp']
+        json_payload = request.get_json()
+        bubble_id = json_payload['bubble_id']
+        email = json_payload['email']
+        timestamp = json_payload['timestamp']
         try:
             BubbleComment.query.filter(BubbleComment.bubble_id == bubble_id, BubbleComment.email == email, BubbleComment.timestamp == timestamp).delete()
             db.session.commit()
             return jsonify({
                 "code": 200,
-                "message": "Bubble successfully deleted"
+                "message": "Comment successfully deleted"
             }),200
         except:
             return jsonify({
@@ -198,12 +201,13 @@ def create_new_bubble():
             highest_bubble_id = 1
 
         bubble_id = highest_bubble_id
-        bubble_name = request.form['bubble_name']
+        json_payload = request.get_json()
+        bubble_name = json_payload['bubble_name']
         create_timestamp = datetime.now().timestamp()
-        meet_timestamp = request.form['meet_timestamp']
-        capacity = request.form['capacity']
-        agenda = request.form['agenda']
-        module_code = request.form['module_code']
+        meet_timestamp = json_payload['meet_timestamp']
+        capacity = json_payload['capacity']
+        agenda = json_payload['agenda']
+        module_code = json_payload['module_code']
 
         try:
             new_bubble = Bubble(bubble_id, bubble_name, create_timestamp, meet_timestamp, capacity, agenda,module_code)
@@ -221,12 +225,13 @@ def create_new_bubble():
             }), 404
 
     if request.method == 'PUT':
-        bubble_id = request.form['bubble_id']
-        bubble_name = request.form['bubble_name']
-        meet_timestamp = request.form['meet_timestamp']
-        capacity = request.form['capacity']
-        agenda = request.form['agenda']
-        module_code = request.form['module_code']
+        json_payload = request.get_json()
+        bubble_id = json_payload['bubble_id']
+        bubble_name = json_payload['bubble_name']
+        meet_timestamp = json_payload['meet_timestamp']
+        capacity = json_payload['capacity']
+        agenda = json_payload['agenda']
+        module_code = json_payload['module_code']
 
         try:
             to_be_updated_bubble = Bubble.query.filter_by(bubble_id=bubble_id).first()
@@ -249,7 +254,8 @@ def create_new_bubble():
             }), 404
 
     if request.method == 'DELETE':
-        bubble_id = request.form['bubble_id']
+        json_payload = request.get_json()
+        bubble_id = json_payload['bubble_id']
         
         try:
             Bubble.query.filter(Bubble.bubble_id==bubble_id).delete()

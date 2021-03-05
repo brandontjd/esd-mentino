@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "aeca4130-55e2-489d-8a4d-f731b2bfaf7a",
-		"name": "ESD Project",
+		"name": "TheMentoringBubble - Bubble Details",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -58,24 +58,13 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "bubble_id",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "b@gmail.com",
-							"type": "text"
-						},
-						{
-							"key": "comment",
-							"value": "Coding out the endpoint for comment now",
-							"type": "text"
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\":1,\n    \"email\":\"b@gmail.com\",\n    \"comment\":\"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
 					"raw": "http://0.0.0.0:5002/bubble_details/comment",
@@ -101,24 +90,13 @@
 				"method": "DELETE",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "bubble_id",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "b@gmail.com",
-							"type": "text"
-						},
-						{
-							"key": "timestamp",
-							"value": "1614950811",
-							"type": "text"
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\":1,\n    \"email\":\"b@gmail.com\",\n    \"timestamp\":\"1614964299\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
 					"raw": "http://0.0.0.0:5002/bubble_details/comment",
@@ -144,40 +122,13 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "bubble_id",
-							"value": "3",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "bubble_name",
-							"value": "ESD Backend Coding",
-							"type": "text"
-						},
-						{
-							"key": "meet_timestamp",
-							"value": "1614951368",
-							"type": "text"
-						},
-						{
-							"key": "capacity",
-							"value": "20",
-							"type": "text"
-						},
-						{
-							"key": "agenda",
-							"value": "Create backend ASAP",
-							"type": "text"
-						},
-						{
-							"key": "module_code",
-							"value": "IS213",
-							"type": "text"
+					"mode": "raw",
+					"raw": "{\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951368\",\n    \"capacity\": \"20\",\n    \"agenda\": \"Create backend ASAP\",\n    \"module_code\": \"IS213\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
 					"raw": "http://0.0.0.0:5002/bubble_details/one",
@@ -203,39 +154,13 @@
 				"method": "PUT",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "bubble_id",
-							"value": "3",
-							"type": "text"
-						},
-						{
-							"key": "bubble_name",
-							"value": "ESD Backend Coding",
-							"type": "text"
-						},
-						{
-							"key": "meet_timestamp",
-							"value": "1614951368",
-							"type": "text"
-						},
-						{
-							"key": "capacity",
-							"value": "20",
-							"type": "text"
-						},
-						{
-							"key": "agenda",
-							"value": "Testing out Put Request",
-							"type": "text"
-						},
-						{
-							"key": "module_code",
-							"value": "IS213",
-							"type": "text"
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\": \"4\",\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951368\",\n    \"capacity\": \"20\",\n    \"agenda\": \"Testing out Put Request\",\n    \"module_code\": \"IS213\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
 					"raw": "http://0.0.0.0:5002/bubble_details/one",
@@ -261,44 +186,13 @@
 				"method": "DELETE",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "bubble_id",
-							"value": "3",
-							"type": "text"
-						},
-						{
-							"key": "bubble_name",
-							"value": "ESD Backend Coding",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "meet_timestamp",
-							"value": "1614951368",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "capacity",
-							"value": "20",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "agenda",
-							"value": "Testing out Put Request",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "module_code",
-							"value": "IS213",
-							"type": "text",
-							"disabled": true
+					"mode": "raw",
+					"raw": "{\"bubble_id\": \"4\"}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
 				"url": {
 					"raw": "http://0.0.0.0:5002/bubble_details/one",
