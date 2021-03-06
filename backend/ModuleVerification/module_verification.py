@@ -14,10 +14,10 @@ app = Flask(__name__)
 # If WAMP:
 # app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root@localhost:3306/esd_db'
 # IF MAMP:
-app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_db'
+# app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL", default="mysql+mysqlconnector://root:root@localhost:3306/esd_db")
+app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL", default="mysql+mysqlconnector://root:root@localhost:3306/esd_db")
 
 # Instanitating the SQLAlchemy DB
 db = SQLAlchemy(app)

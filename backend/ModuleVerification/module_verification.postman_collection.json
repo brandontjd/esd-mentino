@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "0f700937-b3ab-4947-a777-b82e39cf26f9",
+		"name": "module_verification",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all verified module grades of user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5005/module_verification/own/b@gmail.com",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5005",
+					"path": [
+						"module_verification",
+						"own",
+						"b@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update module grades",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"b@gmail.com\",\n    \"modules\": [{\n        \"module_code\": \"IS213\",\n        \"module_grade\": \"A+\"\n    }, {\n        \"module_code\": \"IS216\",\n        \"module_grade\": \"A\"\n    }]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5005/module_verification/own",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5005",
+					"path": [
+						"module_verification",
+						"own"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
