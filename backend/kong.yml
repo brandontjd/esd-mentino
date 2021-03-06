@@ -1,0 +1,22 @@
+_format_version: "1.1"
+
+services:
+  - name: user
+    url: http://user:5004/user
+    routes:
+      - name: user_home
+        paths:
+          - /user
+          
+plugins:
+  - name: jwt
+    route: user_home
+    enabled: true
+    config:
+      key_claim_name: kid
+      
+consumers:
+  - username: userserver
+jwt_secrets:
+  - consumer: userserver
+    secret: "TEST"
