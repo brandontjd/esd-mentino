@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "aeca4130-55e2-489d-8a4d-f731b2bfaf7a",
+		"name": "TheMentoringBubble - Bubble Details",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get one bubble detail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5002/bubble_details/one/1",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5002",
+					"path": [
+						"bubble_details",
+						"one",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all bubbles details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5002/bubble_details/all",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5002",
+					"path": [
+						"bubble_details",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add comment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\":1,\n    \"email\":\"b@gmail.com\",\n    \"comment\":\"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5002/bubble_details/comment",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5002",
+					"path": [
+						"bubble_details",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete comment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\":1,\n    \"email\":\"b@gmail.com\",\n    \"timestamp\":\"1614964299\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5002/bubble_details/comment",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5002",
+					"path": [
+						"bubble_details",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add bubble",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951368\",\n    \"capacity\": \"20\",\n    \"agenda\": \"Create backend ASAP\",\n    \"module_code\": \"IS213\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5002/bubble_details/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5002",
+					"path": [
+						"bubble_details",
+						"one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update bubble",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\": \"4\",\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951368\",\n    \"capacity\": \"20\",\n    \"agenda\": \"Testing out Put Request\",\n    \"module_code\": \"IS213\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5002/bubble_details/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5002",
+					"path": [
+						"bubble_details",
+						"one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete bubble",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"bubble_id\": \"4\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5002/bubble_details/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5002",
+					"path": [
+						"bubble_details",
+						"one"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
