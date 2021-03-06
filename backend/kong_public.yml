@@ -19,4 +19,4 @@ consumers:
   - username: userserver
 jwt_secrets:
   - consumer: userserver
-    secret: "TEST"
+    secret: ${JWT_SECRET}
