@@ -8,14 +8,7 @@ from os import environ, times
 app = Flask(__name__)
 
 # This is for production time to be used
-# app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL")
-
-# When developing, run init.sql inside MAMP / WAMP and use this line instead for SQLALCHEMY_DATABASE_URI
-# If WAMP:
-# app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root@localhost:3306/esd_db'
-# IF MAMP:
-app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root:root@localhost:3306/esd_db'
-
+app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL",default='mysql+mysqlconnector://root:root@localhost:3306/esd_db')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Instanitating the SQLAlchemy DB
@@ -148,7 +141,6 @@ def add_delete_comment():
         email = json_payload['email']
         current_datetime = datetime.now().timestamp()
         comment = json_payload['comment']
-        print(bubble_id)
         try:
             new_comment = BubbleComment(bubble_id, email,current_datetime, comment)
             db.session.add(new_comment)
@@ -274,4 +266,5 @@ def create_new_bubble():
 if __name__ == "__main__":
     # There are multiple addresses on machine
     # 0.0.0.0 means machine is listening on all the ports
-    app.run(host="0.0.0.0", port=5002, debug=True)
+    PYTHON_ENV = environ.get("PYTHON_ENV",default="DEV")
+    app.run(host="0.0.0.0", port=5002, debug=(PYTHON_ENV == "DEV"))
