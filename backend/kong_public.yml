@@ -23,4 +23,6 @@ consumers:
   - username: userserver
 jwt_secrets:
   - consumer: userserver
-    secret: ${JWT_SECRET}
+    secret: "${JWT_SECRET}"
+    key: "${JWT_KEY}"
+    algorithm: HS256

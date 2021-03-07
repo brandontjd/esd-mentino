@@ -11,6 +11,7 @@ services:
             context: ./
             args:
                 JWT_SECRET: ${JWT_SECRET}
+                JWT_KEY: ${JWT_KEY}
             dockerfile: Dockerfile-kongnodb
         image: kong_nodb:1.0
         container_name: kong_nodb
@@ -52,8 +53,9 @@ services:
             context: ./user
         environment:
             PYTHON_ENV: PROD
-            KONG_ADMIN_URL: "http://kong:8001/consumers/userserver/jwt"
             dbURL: "mysql+mysqlconnector://esd_user:esd_user@mysqldb:3306/esd_db"
+            JWT_SECRET: ${JWT_SECRET}
+            JWT_KEY: ${JWT_KEY}
         image: user:1.0
         container_name: user_container
         networks:

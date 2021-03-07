@@ -82,8 +82,6 @@ def log_in():
   :return: { message: <str:message>, token: <str:token> }
   :rtype: json string
   """
-  set_jwt_kid_env()
-
   try:
     json_payload = request.get_json()
     input_email = json_payload['email']
@@ -109,9 +107,10 @@ def log_in():
 
     jwt_token = jwt.encode(
         {"email": user.email},
-        environ.get("JWT_SECRET"),
+        environ.get("JWT_SECRET", default="secret_only_for_local_testing"),
         algorithm="HS256",
-        headers={"kid": environ.get("JWT_KEY")},
+        headers={"kid": environ.get(
+            "JWT_KEY", default="kidOnly4localTes1ing")},
     )
 
     return jsonify({
@@ -127,18 +126,7 @@ def log_in():
         "data": str(err)
     }), 500
 
-def set_jwt_kid_env():
-  if "JWT_KEY" in environ:
-    return
 
-  # You will need to run Kong for this to work
-  KONG_ADMIN_URL = environ.get(
-      "KONG_ADMIN_URL", default="http://localhost:8001/consumers/userserver/jwt")
-  response = requests.get(KONG_ADMIN_URL)
-  payload = response.json()
-  environ["JWT_KEY"] = payload["data"][0]["key"]
-  environ["JWT_SECRET"] = payload["data"][0]["secret"]
-  
 if __name__ == "__main__":
   PYTHON_ENV = environ.get("PYTHON_ENV", default="DEV")
   app.run(host="0.0.0.0", port=5004, debug=(PYTHON_ENV == "DEV"))
