@@ -7,14 +7,7 @@ import json
 # Instanitating the flask application
 app = Flask(__name__)
 
-# This is for production time to be used
-# app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL")
-
 # When developing, run init.sql inside MAMP / WAMP and use this line instead for SQLALCHEMY_DATABASE_URI
-# If WAMP:
-# app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root@localhost:3306/esd_db'
-# IF MAMP:
-# app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+mysqlconnector://root:root@localhost:8889/esd_db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL", default="mysql+mysqlconnector://root:root@localhost:3306/esd_db")
@@ -25,39 +18,6 @@ db = SQLAlchemy(app)
 # Creating the database object
 # Refer to init.sql for table name and the datatypes
 # To keep things simple, I only used varchar and integer, which in flask is String and Integer
-class Bubble(db.Model):
-    __tablename__ = "Bubble"
-
-    bubble_id = db.Column(db.Integer(), primary_key=True)
-    bubble_name = db.Column(db.String(255), nullable=False)
-    create_timestamp = db.Column(db.Integer(), nullable=False)
-    meet_timestamp = db.Column(db.Integer(), nullable=False)
-    capacity = db.Column(db.Integer(), nullable=False)
-    agenda = db.Column(db.String(255), nullable=False)
-    module_code = db.Column(db.String(255), nullable=False)
-
-    def __init__(self, bubble_id, bubble_name, create_timestamp, meet_timestamp, capacity, agenda,module_code):
-        self.bubble_id = bubble_id
-        self.bubble_name = bubble_name
-        self.create_timestamp = create_timestamp
-        self.meet_timestamp = meet_timestamp
-        self.capacity = capacity
-        self.agenda = agenda
-        self.module_code = module_code 
-
-    def json(self):
-        return {
-        "bubble_id": self.bubble_id,
-        "bubble_name": self.bubble_name,
-        "create_timestamp": self.create_timestamp,
-        "meet_timestamp": self.meet_timestamp,
-        "capacity": self.capacity,
-        "agenda": self.agenda,
-        "module_code": self.module_code
-        }
-
-
-
 class ModuleVerification(db.Model):
     __tablename__ = "ModuleVerification"
 
@@ -92,13 +52,17 @@ def update_module_grades():
     If record does not exist, create new in database
 
     """
-    json_payload = request.get_json()
+    header = request.headers.get('Authorization')
+    auth_token = header.split(' ')[-1]
+    json_payload = jwt.decode(auth_token, options={ "verify_signature": False })
+    email = json_payload['email']
     modules_list = json_payload["modules"]
-    email = json_payload["email"]
+
     return_list = []
     for module_obj in modules_list:
         module_code = module_obj["module_code"]
         module_grade = module_obj["module_grade"]
+            
         if ModuleVerification.query.filter(ModuleVerification.email == email, ModuleVerification.module_code == module_code).first():            
             #record exists, update existing record
             record = ModuleVerification.query.filter(ModuleVerification.email == email, ModuleVerification.module_code == module_code).first()
@@ -113,44 +77,52 @@ def update_module_grades():
             db.session.add(new_record)
             db.session.commit()
             return_list.append(new_record.json())
-            print(return_list)
-    print(return_list)
+
     try:
         return jsonify({
             "code": 200,
             "message": "Module grade update success",
             "data": return_list
         }), 200
-    except:
+    except Exception as err:
         return jsonify({
             "code": 404,
-            "message": "Failed to update module grade"
-        }), 404      
+            "message": "Failed to update module grade",
+            "data": str(err)
+        }), 404
 
 
-#check if should have param email for GET module grades
-@app.route("/module_verification/own/<email>",methods=['GET'])
+@app.route("/module_verification/own",methods=['GET'])
 
-def get_module_grades(email):
+def get_module_grades():
     """
     Get already inputted module grades for display
 
     """
+    header = request.headers.get('Authorization')
+    auth_token = header.split(' ')[-1]
+    json_payload = jwt.decode(auth_token, options={ "verify_signature": False })
+    email = json_payload['email']
+
     return_list = []
-    verified_modules = ModuleVerification.query.filter(ModuleVerification.email == email).all()
-    if verified_modules:
+    try:
+        verified_modules = ModuleVerification.query.filter(ModuleVerification.email == email).all()
         for verified_module in verified_modules:
             verified_module_json = verified_module.json()
             return_list.append(verified_module_json)
         return jsonify({
             "code": 200,
-            "data": return_list
+            "data": return_list,
+            "message": "Got module grades success"
             }),200
-    else: 
+    
+    except Exception as err:
         return jsonify({
             "code": 404,
-            "message": "No module grades inputted yet"
+            "message": "Failed to get module grades",
+            "data": str(err)
         }), 404
+
     
 
 if __name__ == "__main__":

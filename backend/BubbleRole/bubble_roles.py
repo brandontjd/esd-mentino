@@ -62,7 +62,7 @@ def get_all_participants_of_bubble(bubble_id: int):
     except Exception as err:
         return jsonify({
             "code": 404,
-            "message": "This is an error message",
+            "message": "Failed to retrieve participants of bubble",
             "data": str(err)
         }), 404
     
@@ -92,7 +92,7 @@ def get_bubbles_of_participant(email):
     except Exception as err:
         return jsonify({
             "code": 404,
-            "message": "This is an error message",
+            "message": "Failed to retrieve bubbles of participant",
             "data": str(err)
         }), 404
 
@@ -115,13 +115,13 @@ def write_bubble_role():
             db.session.commit()
             return jsonify({
                 "code": 200,
-                "message": "Add bubble role success",
+                "message": "Add record to bubble_role db success",
                 "data": new_bubble_role.json()
             }),200
         except Exception as err:
             return jsonify({
                 "code": 404,
-                "message": "This is an error message",
+                "message": "Failed to add record to bubble_role db",
                 "data": str(err)
             }), 404
 
@@ -140,7 +140,7 @@ def write_bubble_role():
                 db.session.commit()
                 return jsonify({
                     "code": 200,
-                    "message": "Update bubble role success",
+                    "message": "Update record in bubble_role db success",
                     "data": to_be_updated_bubble_role.json()
                 }),200
             else:
@@ -151,7 +151,7 @@ def write_bubble_role():
         except Exception as err:
             return jsonify({
                 "code": 404,
-                "message": "This is an error message",
+                "message": "Failed to update record in bubble_role db",
                 "data": str(err)
             }), 404
 
@@ -165,12 +165,12 @@ def write_bubble_role():
             db.session.commit()
             return jsonify({
                 "code": 200,
-                "message": "Delete bubble role success",
+                "message": "Delete record in bubble_role db success",
             }),200
         except Exception as err:
             return jsonify({
                 "code": 404,
-                "message": "This is an error message",
+                "message": "Failed to delete record in bubble_role db",
                 "data": str(err)
             }), 404
 
