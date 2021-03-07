@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from os import environ, times
 import hashlib
 import uuid
+import requests
+import jwt
 
 app = Flask(__name__)
 
@@ -53,7 +55,7 @@ def sign_up():
 
   password_salt = uuid.uuid4().hex
   password_hash = hashlib.sha512(
-    password.encode('utf-8') + password_salt.encode('utf-8')
+      password.encode('utf-8') + password_salt.encode('utf-8')
   ).hexdigest()
 
   new_user = User(email, name, password_salt, password_hash)
@@ -73,8 +75,70 @@ def sign_up():
     }), 500
 
 
+@app.route("/user/login", methods=['GET'])
+def log_in():
+  """
+  :param: { email: <str:email>, password: <str:password> }
+  :return: { message: <str:message>, token: <str:token> }
+  :rtype: json string
+  """
+  set_jwt_kid_env()
+
+  try:
+    json_payload = request.get_json()
+    input_email = json_payload['email']
+    input_password = json_payload['password']
+
+    user = User.query.filter_by(email=input_email).first()
+    if user is None:
+      return jsonify({
+          "code": 404,
+          "message": "user not found",
+      }), 404
+
+    input_password_hash = hashlib.sha512(
+        input_password.encode('utf-8') + user.password_salt.encode('utf-8')
+    ).hexdigest()
+
+    verified = user.password_hash == input_password_hash
+    if not verified:
+      return jsonify({
+          "code": 401,
+          "message": "wrong password",
+      }), 401
+
+    jwt_token = jwt.encode(
+        {"email": user.email},
+        environ.get("JWT_SECRET"),
+        algorithm="HS256",
+        headers={"kid": environ.get("JWT_KEY")},
+    )
+
+    return jsonify({
+        "code": 200,
+        "message": "login success",
+        "data": jwt_token
+    }), 200
+
+  except Exception as err:
+    return jsonify({
+        "code": 200,
+        "message": "Failed to login",
+        "data": str(err)
+    }), 500
+
+def set_jwt_kid_env():
+  if "JWT_KEY" in environ:
+    return
+
+  # You will need to run Kong for this to work
+  KONG_ADMIN_URL = environ.get(
+      "KONG_ADMIN_URL", default="http://localhost:8001/consumers/userserver/jwt")
+  response = requests.get(KONG_ADMIN_URL)
+  payload = response.json()
+  environ["JWT_KEY"] = payload["data"][0]["key"]
+  environ["JWT_SECRET"] = payload["data"][0]["secret"]
+  
 if __name__ == "__main__":
-  # There are multiple addresses on machine
-  # 0.0.0.0 means machine is listening on all the ports
   PYTHON_ENV = environ.get("PYTHON_ENV", default="DEV")
   app.run(host="0.0.0.0", port=5004, debug=(PYTHON_ENV == "DEV"))

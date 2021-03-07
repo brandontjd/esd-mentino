@@ -28,7 +28,7 @@ services:
             - "8444:8444/tcp"
             
     mysqldb:
-        image: mysql
+        image: mysql:8.0
         container_name: mysql_container
         volumes:
             - ./mysql-init-files:/docker-entrypoint-initdb.d
@@ -50,11 +50,23 @@ services:
     user:
         build:
             context: ./user
+        environment:
+            PYTHON_ENV: PROD
+            KONG_ADMIN_URL: "http://kong:8001/consumers/userserver/jwt"
+            dbURL: "mysql+mysqlconnector://esd_user:esd_user@mysqldb:3306/esd_db"
         image: user:1.0
         container_name: user_container
         networks:
             - kong-net
-        environment:
-            dbURL: "mysql+mysqlconnector://esd_user:esd_user@mysqldb:3306/esd_db"
         depends_on:
             - mysqldb
+
+    protected-endpoint:
+        build:
+            context: ./boilerplate-protected-endpoint
+        environment:
+            PYTHON_ENV: PROD
+        image: protected-endpoint:1.0
+        container_name: protected_endpoint_container
+        networks:
+            - kong-net

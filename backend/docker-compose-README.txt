@@ -1,11 +1,7 @@
-Setup: docker-compose up
+Setup: 
+	- docker-compose up
 Tear down:
-	1st Way: (Recommended cos faster to redeploy)
-		- docker-compose down
-		- docker images
-		- docker rmi <image ID of kong_nodb>
-	2nd Way:
-		- docker-compose down --rmi all
+	- docker-compose down --rmi all
 		
 		
 What is going on:
