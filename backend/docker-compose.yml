@@ -50,7 +50,7 @@ services:
  
     user:
         build:
-            context: ./user
+            context: ./User
         environment:
             PYTHON_ENV: PROD
             dbURL: "mysql+mysqlconnector://esd_user:esd_user@mysqldb:3306/esd_db"

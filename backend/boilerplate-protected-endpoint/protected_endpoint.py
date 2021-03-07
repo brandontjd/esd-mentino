@@ -11,6 +11,7 @@ def get_all():
   # -- Only necessary if email is required -- #
   header = request.headers.get('Authorization')
   auth_token = header.split(' ')[-1]
+  # Verifying signature is not necessary as this has been done when request passed through Kong
   json_payload = jwt.decode(auth_token, options={"verify_signature": False})
   email = json_payload['email']
   # ----------------------------------------- #
