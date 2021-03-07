@@ -8,14 +8,11 @@ import requests
 import jwt
 
 app = Flask(__name__)
-
 app.config["SQLALCHEMY_DATABASE_URI"] = environ.get(
     "dbURL", default="mysql+mysqlconnector://root@localhost:3306/esd_db")
-
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
-
 
 class User(db.Model):
   __tablename__ = "User"
@@ -121,7 +118,7 @@ def log_in():
 
   except Exception as err:
     return jsonify({
-        "code": 200,
+        "code": 500,
         "message": "Failed to login",
         "data": str(err)
     }), 500

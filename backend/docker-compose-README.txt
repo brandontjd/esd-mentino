@@ -9,7 +9,7 @@ What is going on:
 2) Kong is deployed
 3) MySQL DB is deployed
 4) MySQL DB is filled up with data in ./mysql-init-files/init.sql
-5) Book Image (From ./book) is built
-6) Book Image is deployed but its port 5000 is ONLY exposed in kong-net bridge network
+5) User Image (From ./User) is built
+6) User Image is deployed but its port 5004 is ONLY exposed in kong-net bridge network
 
-Since kong.yml points localhost:8000/book  -> book:5000, user can go to localhost:8000/book to call book:5000 endpoint
+kong.yml points localhost:8000/user  -> user:5004/user
