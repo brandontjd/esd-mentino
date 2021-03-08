@@ -65,7 +65,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"p@gmail.com\",\n    \"name\": \"Phyo\",\n    \"password\": \"Qwer!234\"\n}",
+					"raw": "{\n    \"email\": \"a@gmail.com\",\n    \"name\": \"Phyo\",\n    \"password\": \"Qwer!234\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -73,15 +73,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://0.0.0.0:5004/user/signup",
+					"raw": "http://localhost:8000/user/signup",
 					"protocol": "http",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"localhost"
 					],
-					"port": "5004",
+					"port": "8000",
 					"path": [
 						"user",
 						"signup"
@@ -152,6 +149,64 @@
 					"path": [
 						"user",
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Protected Endpoint Kong",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJwQGdtYWlsLmNvbSJ9.2i-dLWbw1zWRVodD8CCud0ujvjbUAsos-xeZvioTQP8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/protected-endpoint",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"protected-endpoint"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Protected Endpoint",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJwQGdtYWlsLmNvbSJ9.2i-dLWbw1zWRVodD8CCud0ujvjbUAsos-xeZvioTQP8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/protected-endpoint",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"protected-endpoint"
 					]
 				}
 			},

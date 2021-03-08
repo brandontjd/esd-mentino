@@ -5,7 +5,7 @@ import jwt
 
 app = Flask(__name__)
 
-@app.route("/protected-endpoint/", methods=['POST'])
+@app.route("/protected-endpoint", methods=['POST'])
 def get_all():
 
   # -- Only necessary if email is required -- #
