@@ -614,17 +614,17 @@ DROP TABLE IF EXISTS `User`;
 CREATE TABLE IF NOT EXISTS `User` (
   `email` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `jwt_kid` varchar(255) DEFAULT NULL
+  `password_salt` varchar(255) NOT NULL,
+  `password_hash` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `User`
 --
 
-INSERT INTO `User` (`email`, `name`, `password_hash`, `jwt_kid`) VALUES
-('b@gmail.com', 'Brandon', '1516239022', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJAZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24iLCJwYXNzd29yZF9oYXNoIjoxNTE2MjM5MDIyfQ.se4cFTK8NwHb2Mt08tdDbwmylBBfIMceuMLP21Gy648'),
-('p@gmail.com', 'Phyo', '1516239022', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBAZ21haWwuY29tIiwibmFtZSI6IlBoeW8iLCJwYXNzd29yZF9oYXNoIjoxNTE2MjM5MDIyfQ.d8PH76iLJyeyZUMOf14AuqnEKaeEdFeZeMBK1DCWYiY');
+INSERT INTO `User` (`email`, `name`, `password_salt`, `password_hash`) VALUES
+('b@gmail.com', 'Brandon', '8a42bd59518f44e6ac9eecb37b2f4861', '03a952f730b0093c057a4e8a2b271f7d2f96463e317ad515719171804913f5840d8116b7f8175b85ec678de0ef53f2d8d065691ce0d0bd3cb0baafe5aafe42e0'),
+('p@gmail.com', 'Phyo', 'af84c71a5f36434da76b398a9f297446', 'd63ebc52247b89d60600bcc36303738fd09e9ec6a6c2e1bbd64465d25059c475f32f1c5069e40e408b55a03c5188a58fcf4009b4928c445d32cdb711accb347e');
 
 --
 -- Indexes for dumped tables

@@ -1,0 +1,13 @@
+FROM kong:2.0.4
+
+USER root
+ARG JWT_SECRET
+ARG JWT_KEY
+ENV JWT_SECRET $JWT_SECRET
+ENV JWT_KEY $JWT_KEY
+
+COPY kong_public.yml /
+RUN apk add gettext
+RUN envsubst < /kong_public.yml > /kong.yml
+RUN rm /kong_public.yml
+RUN cp /etc/kong/kong.conf.default /etc/kong/kong.conf

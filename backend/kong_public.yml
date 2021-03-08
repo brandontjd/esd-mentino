@@ -1,0 +1,28 @@
+_format_version: "1.1"
+
+services:
+  - name: user
+    url: http://user:5004/user
+    routes:
+      - name: user_home
+        paths:
+          - /user
+  - name: protected-endpoint
+    url: http://protected-endpoint:5010/protected-endpoint
+    plugins:
+      - name: jwt
+        enabled: true
+        config:
+          key_claim_name: kid
+    routes:
+      - name: protected_endpoint_home
+        paths:
+          - /protected-endpoint
+
+consumers:
+  - username: userserver
+jwt_secrets:
+  - consumer: userserver
+    secret: "${JWT_SECRET}"
+    key: "${JWT_KEY}"
+    algorithm: HS256
