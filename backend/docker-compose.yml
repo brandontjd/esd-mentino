@@ -35,10 +35,10 @@ services:
             - ./mysql-init-files:/docker-entrypoint-initdb.d
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: esd_db
-            MYSQL_USER: esd_user
-            MYSQL_PASSWORD: esd_user
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         networks:
             - kong-net
         ports:
@@ -53,7 +53,7 @@ services:
             context: ./User
         environment:
             PYTHON_ENV: PROD
-            dbURL: "mysql+mysqlconnector://esd_user:esd_user@mysqldb:3306/esd_db"
+            dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
             JWT_SECRET: ${JWT_SECRET}
             JWT_KEY: ${JWT_KEY}
         image: user:1.0
