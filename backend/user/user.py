@@ -1,7 +1,9 @@
 # Importing the relevant files
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
 from os import environ, times
+
 import hashlib
 import uuid
 import requests
@@ -64,6 +66,11 @@ def sign_up():
         "code": 201,
         "message": "Create user success"
     }), 201
+  except IntegrityError:
+    return jsonify({
+        "code": 500,
+        "message": "Duplicate entry"
+    }), 500
   except Exception as err:
     return jsonify({
         "code": 500,
