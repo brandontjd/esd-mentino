@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "7657d2fc-106a-4e2a-a21f-60175789156e",
+		"name": "bubble_roles",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "    Get all participants associated with one bubble",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5003/bubble_roles/one/1",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5003",
+					"path": [
+						"bubble_roles",
+						"one",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "    Get all bubbles associated with one participant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5003/bubble_roles/person/b@gmail.com",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5003",
+					"path": [
+						"bubble_roles",
+						"person",
+						"b@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add bubble role in database",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\": 4,\n    \"email\": \"d@gmail.com\",\n    \"role\": \"mentor\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5003/bubble_roles/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5003",
+					"path": [
+						"bubble_roles",
+						"one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete bubble role in database",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\": 3,\n    \"email\": \"d@gmail.com\",\n    \"role\": \"participant\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5003/bubble_roles/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5003",
+					"path": [
+						"bubble_roles",
+						"one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update bubble role in database",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\": 3,\n    \"email\": \"c@gmail.com\",\n    \"role\": \"participant\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5003/bubble_roles/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5003",
+					"path": [
+						"bubble_roles",
+						"one"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

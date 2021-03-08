@@ -94,14 +94,14 @@ DROP TABLE IF EXISTS `BubbleRole`;
 CREATE TABLE IF NOT EXISTS `BubbleRole` (
   `bubble_id` int(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL
+  `role` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `BubbleRole`
 --
 
-INSERT INTO `BubbleRole` (`bubble_id`, `email`, `type`) VALUES
+INSERT INTO `BubbleRole` (`bubble_id`, `email`, `role`) VALUES
 (1, 'b@gmail.com', 'mentor'),
 (1, 'p@gmail.com', 'participant'),
 (2, 'b@gmail.com', 'participant'),
