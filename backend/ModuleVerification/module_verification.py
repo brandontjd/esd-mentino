@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from os import environ, times
 import json
+import jwt
 
 # Instanitating the flask application
 app = Flask(__name__)
@@ -10,7 +11,7 @@ app = Flask(__name__)
 # When developing, run init.sql inside MAMP / WAMP and use this line instead for SQLALCHEMY_DATABASE_URI
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL", default="mysql+mysqlconnector://root:root@localhost:3306/esd_db")
+app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL", default="mysql+mysqlconnector://root:root@localhost:8889/esd_db")
 
 # Instanitating the SQLAlchemy DB
 db = SQLAlchemy(app)
@@ -56,6 +57,7 @@ def update_module_grades():
     auth_token = header.split(' ')[-1]
     json_payload = jwt.decode(auth_token, options={ "verify_signature": False })
     email = json_payload['email']
+    json_payload = request.get_json()
     modules_list = json_payload["modules"]
 
     return_list = []
@@ -107,9 +109,7 @@ def get_module_grades():
     return_list = []
     try:
         verified_modules = ModuleVerification.query.filter(ModuleVerification.email == email).all()
-        for verified_module in verified_modules:
-            verified_module_json = verified_module.json()
-            return_list.append(verified_module_json)
+        return_list = [module.json() for module in verified_modules]
         return jsonify({
             "code": 200,
             "data": return_list,

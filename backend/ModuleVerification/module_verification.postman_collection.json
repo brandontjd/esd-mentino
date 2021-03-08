@@ -8,10 +8,20 @@
 		{
 			"name": "Get all verified module grades of user",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6InBAZ21haWwuY29tIn0.xQNTmePIVxn8f9FghLsh77TyiQ71G20P9U7uyS8beDg",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://0.0.0.0:5005/module_verification/own/b@gmail.com",
+					"raw": "http://0.0.0.0:5005/module_verification/own",
 					"protocol": "http",
 					"host": [
 						"0",
@@ -22,8 +32,7 @@
 					"port": "5005",
 					"path": [
 						"module_verification",
-						"own",
-						"b@gmail.com"
+						"own"
 					]
 				}
 			},
@@ -32,11 +41,21 @@
 		{
 			"name": "Update module grades",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6InBAZ21haWwuY29tIn0.xQNTmePIVxn8f9FghLsh77TyiQ71G20P9U7uyS8beDg",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"b@gmail.com\",\n    \"modules\": [{\n        \"module_code\": \"IS213\",\n        \"module_grade\": \"A+\"\n    }, {\n        \"module_code\": \"IS216\",\n        \"module_grade\": \"A\"\n    }]\n}",
+					"raw": "{\n    \"modules\": [{\n        \"module_code\": \"IS216\",\n        \"module_grade\": \"A+\"\n    }, {\n        \"module_code\": \"IS110\",\n        \"module_grade\": \"A\"\n    }]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
