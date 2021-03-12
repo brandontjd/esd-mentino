@@ -26,3 +26,5 @@ urllib3==1.26.3
 uuid==1.30
 Werkzeug==1.0.1
 wrapt==1.12.1
+pyjwt==1.4.2
+pika==1.2.0

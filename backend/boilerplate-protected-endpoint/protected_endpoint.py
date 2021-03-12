@@ -3,7 +3,23 @@ from flask import Flask, jsonify, request
 from os import environ, times
 import jwt
 
+from channel import Channel
+import json
+
 app = Flask(__name__)
+
+# -- For any microservice interacting with AMQP -- #
+# 1. Please copy the channel.py to your microservice folder and import accordingly
+# 2. Add pika==1.2.0 to requirements.txt
+# 3. Copy the chunk below
+# 4. Refer to docker-compose configuration too
+pika_channel = Channel(
+  hostname = environ.get("RABBITMQ_HOSTNAME", default="localhost"),
+  port = int(environ.get("RABBITMQ_PORT", default="5672")),
+  exchangename = "esd_exchange",
+  exchangetype = "topic"
+)
+# ------------------------------------------------ #
 
 @app.route("/protected-endpoint", methods=['POST'])
 def get_all():
@@ -16,18 +32,19 @@ def get_all():
   email = json_payload['email']
   # ----------------------------------------- #
 
-  try:
-    return jsonify({
-        "code": 200,
-        "message": "You have passed through Kong authorization",
-        "email": email,
-    }), 200
-  except Exception as err:
-    return jsonify({
-        "code": 500,
-        "message": "You have failed Kong authorization",
-        "data": str(err)
-    }), 500
+
+  # -- Only for logging -- #
+  pika_channel.basic_publish(
+    routing_key="x.log", 
+    body_dict={ "email": email, "type": "info", "data": json.dumps({ "message": "user logged in" })}
+  )
+  # ---------------------- #
+
+  return jsonify({
+      "code": 200,
+      "message": "You have passed through Kong authorization",
+      "email": email,
+  }), 200
 
 if __name__ == "__main__":
   # There are multiple addresses on machine
