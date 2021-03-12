@@ -84,7 +84,8 @@ services:
         networks:
             - kong-net
         depends_on:
-            - mysqldb
+            - rabbitmq
+        restart: always
 
     protected-endpoint:
         build:
@@ -99,4 +100,4 @@ services:
             - kong-net
         depends_on:
             - rabbitmq
-        restart: on-failure
+        restart: always

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 import json
 from os import environ
 from channel import Channel
@@ -12,12 +13,15 @@ port = int(environ.get("RABBITMQ_PORT", default="5672"))
 exchangename = "esd_exchange"
 exchangetype = "topic"
 
-pika_channel = Channel(
-    hostname,
-    port,
-    exchangename,
-    exchangetype
-)
+try:
+    pika_channel = Channel(
+        hostname,
+        port,
+        exchangename,
+        exchangetype
+    )
+except:
+    sys.exit(1)
 
 monitorBindingKey='*.log'
 
