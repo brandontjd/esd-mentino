@@ -14,8 +14,6 @@ services:
         container_name: rabbitmq_container
         networks:
             - kong-net
-        ports:
-            - "5672:5672"
 
     kong:
         build:
