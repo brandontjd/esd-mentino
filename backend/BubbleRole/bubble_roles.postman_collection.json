@@ -35,7 +35,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://0.0.0.0:5003/bubble_roles/person/b@gmail.com",
+					"raw": "http://0.0.0.0:5003/bubble_roles/person/p@gmail.com",
 					"protocol": "http",
 					"host": [
 						"0",
@@ -47,7 +47,7 @@
 					"path": [
 						"bubble_roles",
 						"person",
-						"b@gmail.com"
+						"p@gmail.com"
 					]
 				}
 			},
@@ -60,7 +60,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"bubble_id\": 4,\n    \"email\": \"d@gmail.com\",\n    \"role\": \"mentor\"\n}",
+					"raw": "{\n    \"bubble_id\": 5,\n    \"email\": \"d@gmail.com\",\n    \"role\": \"mentor\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -92,7 +92,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"bubble_id\": 3,\n    \"email\": \"d@gmail.com\",\n    \"role\": \"participant\"\n}",
+					"raw": "{\n    \"bubble_id\": 5,\n    \"email\": \"d@gmail.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -124,7 +124,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"bubble_id\": 3,\n    \"email\": \"c@gmail.com\",\n    \"role\": \"participant\"\n}",
+					"raw": "{\n    \"bubble_id\": 5,\n    \"email\": \"d@gmail.com\",\n    \"role\": \"owner\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
