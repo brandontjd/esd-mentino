@@ -13,15 +13,12 @@ port = int(environ.get("RABBITMQ_PORT", default="5672"))
 exchangename = "esd_exchange"
 exchangetype = "topic"
 
-try:
-    pika_channel = Channel(
-        hostname,
-        port,
-        exchangename,
-        exchangetype
-    )
-except:
-    sys.exit(1)
+pika_channel = Channel(
+    hostname,
+    port,
+    exchangename,
+    exchangetype
+)
 
 monitorBindingKey='*.log'
 
@@ -33,15 +30,13 @@ def callback(channel, method, properties, body): # required signature for the ca
     print("\nReceived a log")
     try:
         payload = json.loads(body)
-        email = payload["email"]
         error_type = payload["type"]
-        data = payload["data"]
 
-        logdna_params = [json.dumps(data), { "email": email }]
-        if error_type == "debug":
+        logdna_params = [body.decode("utf-8"), { "app": "activity_log" }]
+        if error_type == "info":
             log.info(*logdna_params)
-        elif error_type == "log":
-            log.log(*logdna_params)
+        elif error_type == "warning":
+            log.warning(*logdna_params)
         elif error_type == "error":
             log.error(*logdna_params)
     except Exception as e:
