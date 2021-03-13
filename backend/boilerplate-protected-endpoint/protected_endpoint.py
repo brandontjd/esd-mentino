@@ -36,7 +36,7 @@ def get_all():
   # -- Only for logging -- #
   pika_channel.basic_publish(
     routing_key="sample.log", 
-    body_dict={ "email": email, "type": "info", "data": { "message": "user logged in" } }
+    body_dict={ "email": email, "type": "info", "data": { "message": "user in protected endpoint" } }
   )
   # ---------------------- #
 
