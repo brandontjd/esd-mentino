@@ -136,18 +136,19 @@ def write_bubble_role():
             to_be_updated_bubble_role.bubble_id = bubble_id
             to_be_updated_bubble_role.email = email
             to_be_updated_bubble_role.role = role
-            db.session.commit()
-            return jsonify({
-                "code": 200,
-                "message": "Update record in bubble_role db success",
-                "data": to_be_updated_bubble_role.json()
-            }),200
+            try:
+                db.session.commit()
+                return jsonify({
+                    "code": 200,
+                    "message": "Update record in bubble_role db success",
+                    "data": to_be_updated_bubble_role.json()
+                }),200
 
-        except IntegrityError:
-            return jsonify({
-                "code": 500,
-                "message": "Duplicate entry"
-            }), 500
+            except IntegrityError:
+                return jsonify({
+                    "code": 500,
+                    "message": "Duplicate entry"
+                }), 500
 
         except Exception as err:
             return jsonify({
