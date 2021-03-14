@@ -1,6 +1,37 @@
 import pika
 import json
 
+"""
+from channel import Channel
+
+pika_channel = Channel(
+  hostname=,
+  port=,
+  exchangename=,
+  exchangetype=
+)
+
+-- To send to queue ------------
+
+pika_channel.basic_publish(
+  routing_key=, 
+  body_dict=
+)
+
+-------------------------------
+
+
+-- To consume -----------------
+
+def callback(channel, method, properties, body):
+  pass
+
+pika_channel.set_consume_callback(queue=, callback=)
+pika_channel.start_consuming()
+
+-------------------------------
+
+"""
 class Channel:
   def __init__(self, hostname, port, exchangename, exchangetype):
     self.hostname = hostname
