@@ -2,6 +2,8 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from os import environ, times
+from sqlalchemy.exc import IntegrityError
+
 
 # Instanitating the flask application
 app = Flask(__name__)
@@ -48,11 +50,7 @@ def get_all_participants_of_bubble(bubble_id: int):
     
     try:
         bubble_roles_records = BubbleRole.query.filter(BubbleRole.bubble_id == bubble_id).all()
-        return_list=[]
-        for bubble_roles_record in bubble_roles_records:
-            bubble_roles_record = bubble_roles_record.json()
-            return_list.append(bubble_roles_record)
-
+        return_list = [record.json() for record in bubble_roles_records]
         return jsonify({
             "code": 200,
             "message": "Got all participants of bubble",
@@ -75,14 +73,10 @@ def get_bubbles_of_participant(email):
     No header needed cos does not pass through Kong
     
     """
-    return_list = []
 
     try:
         joined_bubbles = BubbleRole.query.filter(BubbleRole.email == email).all()
-        for joined_bubble in joined_bubbles:
-                    bubble_json = joined_bubble.json()
-                    return_list.append(bubble_json)
-
+        return_list = [bubble.json() for bubble in joined_bubbles]
         return jsonify({
             "code": 200,
             "message": "Got all bubbles of participant",
@@ -133,21 +127,29 @@ def write_bubble_role():
 
         try:
             to_be_updated_bubble_role = BubbleRole.query.filter(BubbleRole.bubble_id==bubble_id, BubbleRole.email==email).first()
-            if (to_be_updated_bubble_role.role != role):       
-                to_be_updated_bubble_role.bubble_id = bubble_id
-                to_be_updated_bubble_role.email = email
-                to_be_updated_bubble_role.role = role
+            if to_be_updated_bubble_role is None:
+                return jsonify({
+                    "code": 404,
+                    "message": "Record not found in bubble_role db"
+                }), 404
+
+            to_be_updated_bubble_role.bubble_id = bubble_id
+            to_be_updated_bubble_role.email = email
+            to_be_updated_bubble_role.role = role
+            try:
                 db.session.commit()
                 return jsonify({
                     "code": 200,
                     "message": "Update record in bubble_role db success",
                     "data": to_be_updated_bubble_role.json()
                 }),200
-            else:
+
+            except IntegrityError:
                 return jsonify({
-                "code": 404,
-                "message": "Database record is same as entry, no need to update"
-            }), 404
+                    "code": 500,
+                    "message": "Duplicate entry"
+                }), 500
+
         except Exception as err:
             return jsonify({
                 "code": 404,
