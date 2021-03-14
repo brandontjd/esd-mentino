@@ -2,9 +2,11 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from os import environ, times
+from flask_cors import CORS
 
 # Instanitating the flask application
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # This is for production time to be used
 # app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL")

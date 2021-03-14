@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 from os import environ, times
+from flask_cors import CORS
 
 import hashlib
 import uuid
@@ -10,6 +11,8 @@ import requests
 import jwt
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 app.config["SQLALCHEMY_DATABASE_URI"] = environ.get(
     "dbURL", default="mysql+mysqlconnector://root@localhost:3306/esd_db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -79,7 +82,7 @@ def sign_up():
     }), 500
 
 
-@app.route("/user/login", methods=['GET'])
+@app.route("/user/login", methods=['POST'])
 def log_in():
   """
   :param: { email: <str:email>, password: <str:password> }
