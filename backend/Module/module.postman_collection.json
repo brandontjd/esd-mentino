@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "85a81fdf-5f3d-4ba5-abd7-2b7a48fd25de",
+		"name": "module",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all modules",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5006/module/all",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5006",
+					"path": [
+						"module",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add record in module db",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"module_code\": \"IS000\",\n    \"module_name\": \"Blockchain\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5006/module/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5006",
+					"path": [
+						"module",
+						"one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update record in module db",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"module_code\": \"IS000\",\n    \"module_name\": \"Quantum Computing\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5006/module/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5006",
+					"path": [
+						"module",
+						"one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete record in module db",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"module_code\": \"IS000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5006/module/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5006",
+					"path": [
+						"module",
+						"one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get specific module",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5006/module/one/IS000",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5006",
+					"path": [
+						"module",
+						"one",
+						"IS000"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
