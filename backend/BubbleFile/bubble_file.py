@@ -10,13 +10,17 @@ from flask_sqlalchemy import SQLAlchemy
 from os import environ, times,path
 from werkzeug.utils import secure_filename
 import werkzeug
-import json
 from google.cloud import storage
+
+environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./gcp-credentials.json"
 class BucketConnector:
+    """
+    Class to connect to GCP bucket for neater code.
+    Contains one method.
+    """
     def __init__(self):
         """
         Create connection to GCP Bucket
-        Still pending how docker will handle this, need to test out
         """
         self.bucket_name = environ.get("BucketName",default="end_mentoring_bubble")
         client = storage.Client()
@@ -24,15 +28,14 @@ class BucketConnector:
 
     def upload_file(self,file_name: str, user_file):
         """
-        Uploading file to GCP Bucket
+        Uploading file to GCP Bucket and returns url of file
         """
-        blob = self.bucket.blob(file_name)
+        blob = self.bucket.blob(file_name) # .blob will instansitate the blob in GCP Bucket
         try:
-            # with open(user_file, "rb") as file:
-            blob.upload_from_file(user_file)
+            blob.upload_from_file(user_file) # upload content into the instansitated blob
             return jsonify({
                 "status":"success",
-                "url":blob.public_url
+                "url":blob.public_url # public url for end user to access to download the materials
             })
 
         except Exception as e:
@@ -47,7 +50,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL",default='mysql+mysqlconnector://root:root@localhost:3306/esd_db')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Validating file size and type
+# Conditions file size and type
 app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024 # 10 MB
 app.config["UPLOAD_EXTENSIONS"] = ["pdf","docx","pptx","txt"]
 
@@ -94,6 +97,8 @@ def get_bubble_files(bubble_id: int):
 
 @app.route("/bubble/file",methods=['POST'])
 def upload_bubble_files():
+
+    # Check if file size is under 10 MB
     try:
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
@@ -103,12 +108,14 @@ def upload_bubble_files():
             "message": str(e) + "- {} MB.".format(app.config["MAX_CONTENT_LENGTH"])
         }),413
     
+    # Check if a file has been attached
     if filename == "":
         return jsonify({
-            "code":404,
+            "code":400,
             "message": "No file attached."
-        }),404
+        }),400
 
+    # Check if sufficient details have been provided
     try:
         bubble_id = request.form.get('bubble_id')
         current_datetime = datetime.now().timestamp()
@@ -116,10 +123,11 @@ def upload_bubble_files():
         
     except:
         return jsonify({
-            "code":404,
+            "code":400,
             "message": "Insufficient details provided for upload."
-        }),404
+        }),400
     
+    # Check if file format is valid
     file_ext = filename.split('.')[-1]
     if file_ext not in app.config['UPLOAD_EXTENSIONS']:
         return jsonify({
@@ -131,9 +139,9 @@ def upload_bubble_files():
     blob_status = bc.upload_file(filename,uploaded_file).json
     if blob_status["status"] == "failed":
         return jsonify({
-                "code":404,
+                "code":503,
                 "message": blob_status["error_msg"]
-            }),404
+            }),503
 
     try:
         new_file = BubbleFile(bubble_id, current_datetime, blob_status["url"] ,description)
