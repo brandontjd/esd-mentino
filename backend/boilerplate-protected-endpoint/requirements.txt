@@ -16,7 +16,6 @@ mccabe==0.6.1
 mysql-connector-python==8.0.22
 protobuf==3.14.0
 pycodestyle==2.6.0
-PyJWT==2.0.1
 pylint==2.6.0
 requests==2.25.1
 six==1.15.0
