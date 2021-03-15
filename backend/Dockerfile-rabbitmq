@@ -1,0 +1,4 @@
+FROM rabbitmq:3.6.11-management
+
+ADD ./rabbitmq-init-files/rabbitmq.config /etc/rabbitmq/
+ADD ./rabbitmq-init-files/definitions.json /etc/rabbitmq/

@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "name": "guest",
+      "password_hash": "KI6RZbttQdMZPBgAQD/bU7MsWAYopUDROFIR7yuEA+Pe7QD/",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "parameters": [],
+  "policies": [],
+  "exchanges": [
+    {
+      "name": "esd_exchange",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "queues": [
+    {
+      "name": "activity_log",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "esd_exchange",
+      "vhost": "/",
+      "destination": "activity_log",
+      "destination_type": "queue",
+      "routing_key": "*.log",
+      "arguments": {}
+    }
+  ]
+}
