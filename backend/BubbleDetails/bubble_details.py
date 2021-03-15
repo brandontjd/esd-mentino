@@ -162,10 +162,10 @@ def create_new_bubble():
                 "message": "Update bubble details success",
                 "data": to_be_updated_bubble.json()
             }),200
-        except:
+        except Exception as e:
             return jsonify({
                 "code": 404,
-                "message": "Failed to update bubble"
+                "message": "Failed to update bubble - bubble does not exist."
             }), 404
 
     if request.method == 'DELETE':
@@ -179,10 +179,10 @@ def create_new_bubble():
                 "code": 200,
                 "message": "Delete bubble success",
             }),200
-        except:
+        except Exception as e:
             return jsonify({
                 "code": 404,
-                "message": "Failed to delete bubble"
+                "message": "Failed to delete bubble - {}".format(str(e))
             }), 404
 
 if __name__ == "__main__":
