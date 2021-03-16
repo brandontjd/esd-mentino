@@ -42,7 +42,7 @@ class BucketConnector:
             # Documentation can't find the exact exception that is raised here.
             return jsonify({
                 "status":"failed",
-                "error_msg":e
+                "error_msg":str(e)
             })
 
 app = Flask(__name__)
