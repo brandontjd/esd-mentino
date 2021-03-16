@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Get one bubble detail",
+			"name": "[SUCCESS] Get one bubble detail",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -30,7 +30,7 @@
 			"response": []
 		},
 		{
-			"name": "Get all bubbles details",
+			"name": "[SUCCESS]  Get all bubbles details",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -53,71 +53,7 @@
 			"response": []
 		},
 		{
-			"name": "add comment",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"bubble_id\":1,\n    \"email\":\"b@gmail.com\",\n    \"comment\":\"\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://0.0.0.0:5002/bubble_details/comment",
-					"protocol": "http",
-					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
-					],
-					"port": "5002",
-					"path": [
-						"bubble_details",
-						"comment"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "delete comment",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"bubble_id\":1,\n    \"email\":\"b@gmail.com\",\n    \"timestamp\":\"1614964299\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://0.0.0.0:5002/bubble_details/comment",
-					"protocol": "http",
-					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
-					],
-					"port": "5002",
-					"path": [
-						"bubble_details",
-						"comment"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "add bubble",
+			"name": "[SUCCESS]  add bubble",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -149,13 +85,13 @@
 			"response": []
 		},
 		{
-			"name": "update bubble",
+			"name": "[FAIL]  add bubble",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"bubble_id\": \"4\",\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951368\",\n    \"capacity\": \"20\",\n    \"agenda\": \"Testing out Put Request\",\n    \"module_code\": \"IS213\"\n}",
+					"raw": "{\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951368\",\n    \"capacity\": \"20\",\n    \"module_code\": \"IS213\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -181,13 +117,77 @@
 			"response": []
 		},
 		{
-			"name": "delete bubble",
+			"name": "[SUCCESS]  update bubble",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\": \"2\",\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951368\",\n    \"capacity\": \"20\",\n    \"agenda\": \"Testing out Put Request\",\n    \"module_code\": \"IS213\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5002/bubble_details/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5002",
+					"path": [
+						"bubble_details",
+						"one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[FAIL]  update bubble",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\": \"5\",\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951368\",\n    \"capacity\": \"20\",\n    \"agenda\": \"Testing out Put Request\",\n    \"module_code\": \"IS213\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5002/bubble_details/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5002",
+					"path": [
+						"bubble_details",
+						"one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS]  delete bubble",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"bubble_id\": \"4\"}",
+					"raw": "{\"bubble_id\": \"3\"}",
 					"options": {
 						"raw": {
 							"language": "json"
