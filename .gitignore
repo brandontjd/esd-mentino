@@ -134,3 +134,12 @@ dmypy.json
 
 # Venv files
 esd_mentino_env/*
+
+# GCP Credentials
+/backend/gcp-credentials.json
+backend/BubbleFile/gcp-credentials.json
+
+#Mac OS files
+backend/.DS_Store
+.DS_Store
+.DS_Store?

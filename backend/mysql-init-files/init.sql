@@ -73,16 +73,18 @@ DROP TABLE IF EXISTS `BubbleFile`;
 CREATE TABLE IF NOT EXISTS `BubbleFile` (
   `bubble_id` int(255) NOT NULL,
   `timestamp` int(255) NOT NULL,
-  `s3_bucket` varchar(255) NOT NULL
+  `blob_url` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `BubbleFile`
 --
 
-INSERT INTO `BubbleFile` (`bubble_id`, `timestamp`, `s3_bucket`) VALUES
-(1, 1619798400, '#'),
-(2, 1619798401, '#');
+INSERT INTO `BubbleFile` (`bubble_id`, `timestamp`, `blob_url`,`description`) VALUES
+(1, 1619798400, 'testing.txt','Testfile 1'),
+(1, 1619798402, 'upload.txt','Testfile 3'),
+(2, 1619798401, 'testing.txt','Testfile 2');
 
 -- --------------------------------------------------------
 
