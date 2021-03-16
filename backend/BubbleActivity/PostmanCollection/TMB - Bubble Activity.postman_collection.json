@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "f1190f15-b432-4e8e-b02c-049ab45c8f52",
+		"name": "TMB - Bubble Activity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "[SUCCESS] Get all bubbles",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"b@gmail.com\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5001/bubble_activity/all",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5001",
+					"path": [
+						"bubble_activity",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Get one bubble",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"b@gmail.com\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5001/bubble_activity/one/1",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5001",
+					"path": [
+						"bubble_activity",
+						"one",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[FAIL] Get one bubble Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"b@gmail.com\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5001/bubble_activity/one/101",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5001",
+					"path": [
+						"bubble_activity",
+						"one",
+						"101"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS]  Create new bubble",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImNAZ21haWwuY29tIn0.yYa0nqQdg4bR0y0e9x3dNJwIGMcHcDld_zfzXO3b3Tk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951368\",\n    \"capacity\": \"20\",\n    \"agenda\": \"Orchestrator\",\n    \"module_code\": \"IS999\",\n    \"email\":\"b@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5001/bubble_activity/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5001",
+					"path": [
+						"bubble_activity",
+						"one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Join bubble",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\":4,\n    \"role\":\"participant\",\n    \"email\":\"b@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5001/bubble_activity/join",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5001",
+					"path": [
+						"bubble_activity",
+						"join"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Upload file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/brandontan/esd-mentino/backend/BubbleFile/PostmanCollection/testing.txt"
+						},
+						{
+							"key": "bubble_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "test form 4",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "b@gmail.com",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5001/bubble_activity/upload",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5001",
+					"path": [
+						"bubble_activity",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[FAIL] Upload file - not mentor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/brandontan/esd-mentino/backend/BubbleFile/PostmanCollection/testing.txt"
+						},
+						{
+							"key": "bubble_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "test form 4",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "b@gmail.com",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5001/bubble_activity/upload",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5001",
+					"path": [
+						"bubble_activity",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
