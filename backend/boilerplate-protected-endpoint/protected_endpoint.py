@@ -38,7 +38,11 @@ def get_all():
     routing_key="sample.log", 
     body_dict={ "email": email, "type": "info", "data": { "message": "user in protected endpoint" } }
   )
-  # ---------------------- #
+  # -- Only for emailing -- #
+  pika_channel.basic_publish(
+    routing_key="sample.email", 
+    body_dict={ "emails": [email], "event": "mentor_joined", "bubble_name": "My lovely bubblies" }
+  )
 
   return jsonify({
       "code": 200,

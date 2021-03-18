@@ -87,6 +87,22 @@ services:
             - rabbitmq
         restart: always
 
+    send-email:
+        build:
+            context: ./SendEmail
+        environment:
+            RABBITMQ_HOSTNAME: "rabbitmq"
+            RABBITMQ_PORT: "5672"
+            EMAIL_USERNAME: ${EMAIL_USERNAME}
+            EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+        image: send-email:1.0
+        container_name: send_email_container
+        networks:
+            - kong-net
+        depends_on:
+            - rabbitmq
+        restart: always
+
     protected-endpoint:
         build:
             context: ./boilerplate-protected-endpoint

@@ -41,6 +41,13 @@
       "durable": true,
       "auto_delete": false,
       "arguments": {}
+    },
+    {
+      "name": "send_email",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
     }
   ],
   "bindings": [
@@ -50,6 +57,14 @@
       "destination": "activity_log",
       "destination_type": "queue",
       "routing_key": "*.log",
+      "arguments": {}
+    },
+    {
+      "source": "esd_exchange",
+      "vhost": "/",
+      "destination": "send_email",
+      "destination_type": "queue",
+      "routing_key": "*.email",
       "arguments": {}
     }
   ]
