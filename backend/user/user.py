@@ -113,7 +113,7 @@ def log_in():
       }), 401
 
     jwt_token = jwt.encode(
-        {"email": user.email},
+        { "email": user.email, "name": user.name },
         environ.get("JWT_SECRET", default="secret_only_for_local_testing"),
         algorithm="HS256",
         headers={"kid": environ.get(
@@ -123,7 +123,7 @@ def log_in():
     return jsonify({
         "code": 200,
         "message": "login success",
-        "data": jwt_token
+        "data": jwt_token.decode("utf-8")
     }), 200
 
   except Exception as err:
