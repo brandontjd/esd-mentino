@@ -8,13 +8,13 @@ app = Flask(__name__)
 
 # All Routes that are orchestrated
 if environ.get("PYTHON_ENV", default="DEV") == "PROD":
-    bubble_details_host = "http://bubble_details:5002
-    bubble_roles_host = "http://bubble_roles:5003
-    bubble_files_host = "http://bubble_files:5007
+    bubble_details_host = "http://bubble_details:5002"
+    bubble_roles_host = "http://bubble_roles:5003"
+    bubble_files_host = "http://bubble_files:5007"
 else:
-    bubble_details_host = "http://localhost:5002
-    bubble_roles_host = "http://localhost:5003
-    bubble_files_host = "http://localhost:5007
+    bubble_details_host = "http://localhost:5002"
+    bubble_roles_host = "http://localhost:5003"
+    bubble_files_host = "http://localhost:5007"
 
 bd_get_single_bubble = bubble_details_host + "/bubble_details/one/" # plus bubble id
 bd_get_all_bubble = bubble_details_host + "/bubble_details/all"
