@@ -7,20 +7,25 @@ import requests
 app = Flask(__name__)
 
 # All Routes that are orchestrated
-# bd - bubble details 
-# br - bubble roles
-# bf - bubble files
-bd_get_single_bubble = "http://localhost:5002/bubble_details/one/" # plus bubble id
-bd_get_all_bubble = "http://localhost:5002/bubble_details/all"
-bd_edit = "http://localhost:5002/bubble_details/one"
+if environ.get("PYTHON_ENV", default="DEV") == "PROD":
+    bubble_details_host = "http://bubble_details:5002
+    bubble_roles_host = "http://bubble_roles:5003
+    bubble_files_host = "http://bubble_files:5007
+else:
+    bubble_details_host = "http://localhost:5002
+    bubble_roles_host = "http://localhost:5003
+    bubble_files_host = "http://localhost:5007
 
-br_bubble_participant = "http://localhost:5003/bubble_roles/one/" # plus bubble id
-br_user_active_bubble = "http://localhost:5003/bubble_roles/person/" # plus email
-br_edit = "http://localhost:5003/bubble_roles/one"
-br_check_if_mentor_exist = "http://localhost:5003/bubble_roles/one/mentor_found/" # plus bubble_id
+bd_get_single_bubble = bubble_details_host + "/bubble_details/one/" # plus bubble id
+bd_get_all_bubble = bubble_details_host + "/bubble_details/all"
+bd_edit = bubble_details_host + "/bubble_details/one"
 
-bf_get_files = "http://localhost:5007/bubble/file/" # plus bubble id
-bf_upload_files = "http://localhost:5007/bubble/file"
+br_bubble_participant = bubble_roles_host + "/bubble_roles/one/" # plus bubble id
+br_user_active_bubble = bubble_roles_host + "/bubble_roles/person/" # plus email
+br_edit = bubble_roles_host + "/bubble_roles/one"
+
+bf_get_files = bubble_files_host + "/bubble/file/" # plus bubble id
+bf_upload_files = bubble_files_host + "/bubble/file"
 
 def error_callback(error_data):
     """
@@ -67,7 +72,7 @@ def get_all_bubbles():
         bubble_details_response = requests.request(method="GET",url=bd_get_all_bubble)
         bubble_data = bubble_details_response.json()
     except Exception as e:
-        return(unavailable_callback("Bubble Details",e))
+        return unavailable_callback("Bubble Details",e)
 
     if bubble_details_response.status_code in range(200,300):
         # Bubble does exist, now retrieve bubble(s) that user is active 
@@ -76,32 +81,18 @@ def get_all_bubbles():
             bubble_roles_response = requests.request(method="GET",url=br_user_active_bubble+email)
             bubbles_roles_data = bubble_roles_response.json()
         except Exception as e:
-            return(unavailable_callback("Bubble Roles",e))
+            return unavailable_callback("Bubble Roles",e)
 
         if bubble_roles_response.status_code in range(200,300):
             for bubble in bubble_data["data"]:
                 bubble_id = bubble["bubble_id"]
                 # Assumption that if the above doesn't throw an error, the endpoint should work
                 # going forward and thus no more try and except
-                """
-                Sample Data - for pull request only, later will clean up
-                "data": {
-                    "b@gmail.com": "mentor",
-                    "p@gmail.com": "participant"
-                    },
-                """
                 bubble_participants = requests.request(method="GET",url=br_bubble_participant+str(bubble_id)).json()["data"]
                 
                 bubble["num_participants"] = len(bubble_participants)
                 bubble["mentor_found"] = "mentor" in bubble_participants.values()
                 if str(bubble_id) in bubbles_roles_data["data"].keys():
-                    """
-                    Sample Data - for pull request only, later will clean up
-                    "data": {
-                        "1": "participant",
-                        "2": "mentor"
-                    },
-                    """
                     bubble["role"] = bubbles_roles_data["data"][str(bubble_id)]
                     active_bubbles.append(bubble)
                 else:
@@ -116,9 +107,9 @@ def get_all_bubbles():
                 }
             }),200
         else:
-            return(error_callback(bubbles_roles_data))
+            return error_callback(bubbles_roles_data)
     else:
-        return(error_callback(bubble_data))
+        return error_callback(bubble_data)
 
 @app.route("/bubble_activity/one/<int:bubble_id>",methods=['GET'])
 def get_one_bubble(bubble_id):
@@ -147,10 +138,10 @@ def get_one_bubble(bubble_id):
             response = requests.request(method="GET",url=url_dict[url_name])
             data = response.json()
         except Exception as e:
-            return(unavailable_callback(url_name,e))
+            return unavailable_callback(url_name,e)
         
         if response.status_code not in range(200,300):
-            return(error_callback(data))
+            return error_callback(data)
         else:
             response_dict[url_name] = data
 
@@ -216,7 +207,7 @@ def join_bubble():
     try:
         create_roles_response = requests.request(method="POST",url=br_edit,json=request.get_json())
     except Exception as e:
-        return(unavailable_callback("Bubble Roles"))
+        return unavailable_callback("Bubble Roles")
 
     if create_roles_response.status_code in range(200,300):
         return jsonify({
@@ -247,7 +238,7 @@ def upload_file():
     try:
         get_bubble_participants_response = requests.request(method="GET",url=br_bubble_participant+str(bubble_id))
     except Exception as e:
-        return(unavailable_callback("Bubble Roles",e))
+        return unavailable_callback("Bubble Roles",e)
 
     if get_bubble_participants_response.status_code in range(200,300):
         participant_data = get_bubble_participants_response.json()["data"]
@@ -262,7 +253,7 @@ def upload_file():
             file = request.files['file']
             upload_file_response = requests.request(method="POST",url=bf_upload_files,data=request.form,files={'file':(file.filename,file.stream,file.content_type,file.headers)})
         except Exception as e:
-            return(unavailable_callback("Bubble File",e))
+            return unavailable_callback("Bubble File",e)
         
         if upload_file_response.status_code in range(200,300):
             return jsonify({
