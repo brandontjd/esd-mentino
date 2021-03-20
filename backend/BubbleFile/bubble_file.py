@@ -7,7 +7,7 @@
 from datetime import datetime
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
-from os import environ, times,path
+from os import environ
 from werkzeug.utils import secure_filename
 import werkzeug
 from google.cloud import storage
@@ -107,9 +107,8 @@ def upload_bubble_files():
             "code":413,
             "message": str(e) + "- {} MB.".format(app.config["MAX_CONTENT_LENGTH"])
         }),413
-    
-    # Check if a file has been attached
-    if filename == "":
+    except KeyError:
+        # Check if a file has been attached
         return jsonify({
             "code":400,
             "message": "No file attached."
@@ -117,9 +116,9 @@ def upload_bubble_files():
 
     # Check if sufficient details have been provided
     try:
-        bubble_id = request.form.get('bubble_id')
+        bubble_id = request.form['bubble_id']
         current_datetime = datetime.now().timestamp()
-        description = request.form.get('description')
+        description = request.form['description']
         
     except:
         return jsonify({

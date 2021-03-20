@@ -45,16 +45,14 @@ def get_all_participants_of_bubble(bubble_id: int):
     """
     Get all participants associated with one bubble
     No header needed cos does not pass through Kong
-    
     """
-    
     try:
         bubble_roles_records = BubbleRole.query.filter(BubbleRole.bubble_id == bubble_id).all()
-        return_list = [record.json() for record in bubble_roles_records]
+        return_dict = {record.json()["email"]:record.json()["role"] for record in bubble_roles_records}
         return jsonify({
             "code": 200,
             "message": "Got all participants of bubble",
-            "data": return_list
+            "data": return_dict
         }),200
 
     except Exception as err:
@@ -71,16 +69,14 @@ def get_bubbles_of_participant(email):
     """
     Get all bubbles associated with one participant
     No header needed cos does not pass through Kong
-    
     """
-
     try:
         joined_bubbles = BubbleRole.query.filter(BubbleRole.email == email).all()
-        return_list = [bubble.json() for bubble in joined_bubbles]
+        return_dict = {record.json()["bubble_id"]:record.json()["role"] for record in joined_bubbles}
         return jsonify({
             "code": 200,
             "message": "Got all bubbles of participant",
-            "data": return_list
+            "data": return_dict
         }),200
 
     except Exception as err:
@@ -95,7 +91,6 @@ def get_bubbles_of_participant(email):
 def write_bubble_role():
     """
     Add, update and delete bubble roles in database
-
     """
     if request.method == 'POST':
 
