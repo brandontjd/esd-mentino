@@ -141,7 +141,10 @@ def get_one_bubble(bubble_id):
             return unavailable_callback(url_name,e)
         
         if response.status_code not in range(200,300):
-            return error_callback(data)
+            if url_name == "Bubble Files":
+                response_dict[url_name] = {"data":[{}]}
+            else:
+                return error_callback(data)
         else:
             response_dict[url_name] = data
 
@@ -158,7 +161,7 @@ def get_one_bubble(bubble_id):
     
     return jsonify({
         "code":200,
-        "message":"Get all bubble data success",
+        "message":"Get bubble data success",
         "data": bubble
     }),200
     
