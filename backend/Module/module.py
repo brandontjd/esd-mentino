@@ -44,11 +44,11 @@ def get_all_modules():
     """
     try:
         modules = Module.query.all()
-        return_list = [module.json() for module in modules]
+        return_dict = {module.json()['module_code']:module.json()['module_name'] for module in modules}
         return jsonify({
             "code": 200,
             "message": "Got all modules success",
-            "data": return_list
+            "data": return_dict
         }),200
     except Exception as err:
         return jsonify({
