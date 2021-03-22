@@ -189,7 +189,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"bubble_id\":4,\n    \"role\":\"mentor\",\n    \"email\":\"b@gmail.com\"\n}",
+					"raw": "{\n    \"bubble_id\":4,\n    \"role\":\"mentor\",\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -231,7 +231,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"bubble_id\":3,\n    \"role\":\"mentor\",\n    \"email\":\"b@gmail.com\"\n}",
+					"raw": "{\n    \"bubble_id\":3,\n    \"role\":\"mentor\",\n}",
 					"options": {
 						"raw": {
 							"language": "json"
