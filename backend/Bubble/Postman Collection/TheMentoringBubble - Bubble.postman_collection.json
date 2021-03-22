@@ -1,0 +1,406 @@
+{
+	"info": {
+		"_postman_id": "e5684f81-d01e-450d-8f9a-06f5b767449f",
+		"name": "TheMentoringBubble - Bubble",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "[SUCCESS] Get all bubbles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJAZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.HWCMXTIcevkQKjruAh6jXbYhOD9aGAlW7swvLOyrSJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5000/bubble/all",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"bubble",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Get One Bubble",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJAZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.HWCMXTIcevkQKjruAh6jXbYhOD9aGAlW7swvLOyrSJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5000/bubble/one/1",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"bubble",
+						"one",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Create Bubble",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJAZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.HWCMXTIcevkQKjruAh6jXbYhOD9aGAlW7swvLOyrSJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951398\",\n    \"capacity\": \"20\",\n    \"agenda\": \"Orchestrator\",\n    \"module_code\": \"IS999\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5000/bubble/one",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"bubble",
+						"one"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Upload file",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJAZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.HWCMXTIcevkQKjruAh6jXbYhOD9aGAlW7swvLOyrSJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/brandontan/esd-mentino/requirements.txt"
+						},
+						{
+							"key": "bubble_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Bubble super orchestrator",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "b@gmail.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5000/bubble/upload",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"bubble",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[FAIL] Join Bubble as Mentor due to lack of verification",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJAZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.HWCMXTIcevkQKjruAh6jXbYhOD9aGAlW7swvLOyrSJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\":4,\n    \"role\":\"mentor\",\n    \"email\":\"b@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5000/bubble/join",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"bubble",
+						"join"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Join Bubble as Mentor",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJAZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.HWCMXTIcevkQKjruAh6jXbYhOD9aGAlW7swvLOyrSJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bubble_id\":3,\n    \"role\":\"mentor\",\n    \"email\":\"b@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5000/bubble/join",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"bubble",
+						"join"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Declare Modules",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJAZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.HWCMXTIcevkQKjruAh6jXbYhOD9aGAlW7swvLOyrSJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"modules\":[\n        {\n            \"module_code\":\"IS987\",\n            \"module_grade\":\"A\"\n        },\n        {\n            \"module_code\":\"IS986\",\n            \"module_grade\":\"A\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5000/bubble/module_verification/own",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"bubble",
+						"module_verification",
+						"own"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Get Declared Modules",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJAZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.HWCMXTIcevkQKjruAh6jXbYhOD9aGAlW7swvLOyrSJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5000/bubble/module_verification/own",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"bubble",
+						"module_verification",
+						"own"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Get All Modules",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJAZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.HWCMXTIcevkQKjruAh6jXbYhOD9aGAlW7swvLOyrSJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5000/bubble/module/all",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"bubble",
+						"module",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Get One Module",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJAZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.HWCMXTIcevkQKjruAh6jXbYhOD9aGAlW7swvLOyrSJ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://0.0.0.0:5000/bubble/module/one/IS111",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"bubble",
+						"module",
+						"one",
+						"IS111"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
