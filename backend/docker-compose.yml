@@ -209,6 +209,8 @@ services:
         build:
             context: ./Bubble
         environment:
+            RABBITMQ_HOSTNAME: "rabbitmq"
+            RABBITMQ_PORT: "5672"
             PYTHON_ENV: PROD
             dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
             PYTHONUNBUFFERED: 1
