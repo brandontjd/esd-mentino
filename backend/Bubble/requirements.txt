@@ -24,3 +24,4 @@ Werkzeug==1.0.1
 wrapt==1.12.1
 pyjwt==1.4.2
 pika==1.2.0
+Flask-Cors==3.0.10
