@@ -163,6 +163,7 @@ def join_bubble():
         bubble_activity_response = requests.request(method="GET",url=ba_get_one+str(bubble_id),json=email_payload)
         bubble_data = bubble_activity_response.json()
         module_code = bubble_data['data']['module_code']
+        bubble_name = bubble_data['data']['bubble_name']
     except Exception as e:
         return unavailable_callback("Bubble Activity",e)
 
@@ -179,9 +180,12 @@ def join_bubble():
                 # Step 2 - They are verified, proceed to join
                 try:
                     bubble_activity_response = requests.request(method="POST",url=ba_join_bubble,json=json_payload)
-                    # # Placeholder for sending emails
-                    # send_email(["kpyar.2019@sis.smu.edu.sg"], "CT Homework")
-                    return bubble_activity_response.json()
+                    bubble_activity_data = bubble_activity_response.json()
+                    if bubble_activity_response.status_code in range(200,300):
+                        emails = bubble_activity_data['data']['emails']
+                        send_email(emails,bubble_name)  # No error handler here, as RabbitMQ will catch if email service is not available 
+                    bubble_activity_data.pop('data', None) # Pop away the email data so that frontend doesn't get it - data privacy
+                    return bubble_activity_data
                 except Exception as e:
                     return unavailable_callback("Bubble Activity",e)
 
@@ -193,8 +197,10 @@ def join_bubble():
     else:
         # it will be participant if not mentor
         try:
-            bubble_role_response = requests.request(method="POST",url=ba_join_bubble,json=json_payload)
-            return bubble_role_response.json()
+            bubble_activity_response = requests.request(method="POST",url=ba_join_bubble,json=json_payload)
+            bubble_activity_data = bubble_activity_response.json()
+            bubble_activity_data.pop('data', None)
+            return bubble_activity_data
         except Exception as e:
             return unavailable_callback("Bubble Roles",e)
         
