@@ -176,7 +176,7 @@ def create_new_bubble():
         create_bubble_response = requests.request(method="POST",url=bd_edit,json=request.get_json())
         create_bubble_data = create_bubble_response.json()
     except Exception as e:
-        return(unavailable_callback("Bubble Details",e))
+        return unavailable_callback("Bubble Details",e)
 
     if create_bubble_response.status_code in range(200,300):
         json_payload = create_bubble_data["data"].copy()
@@ -185,7 +185,7 @@ def create_new_bubble():
         try:
             create_roles_response = requests.request(method="POST",url=br_edit,json=json_payload)
         except Exception as e:
-            return(unavailable_callback("Bubble Roles",e))
+            return unavailable_callback("Bubble Roles",e)
 
         if create_roles_response.status_code in range(200,300):
             create_bubble_data["data"]["role"] = "owner"
@@ -203,19 +203,24 @@ def create_new_bubble():
 @app.route("/bubble_activity/join",methods=["POST"])
 def join_bubble():
     """
-    Create role for user in role DB.
-    Note for Brandon later: Bubble Orchestrator must decode email and insert into json payload
-    Assumes that frontend will not display the join button, if the user already has a role in bubble.
+    Create role for user in role DB. 
+    Retrieves the emails after successfully joining for downstream service to notify users
     """
     try:
         create_roles_response = requests.request(method="POST",url=br_edit,json=request.get_json())
     except Exception as e:
-        return unavailable_callback("Bubble Roles")
+        return unavailable_callback("Bubble Roles",e)
 
     if create_roles_response.status_code in range(200,300):
+        bubble_id = request.get_json()['bubble_id']
+        bubble_participants = requests.request(method="GET",url=br_bubble_participant+str(bubble_id)).json()["data"]
+        emails = list(bubble_participants.keys())
         return jsonify({
                 "code":201,
-                "message":"bubble join success"
+                "message":"bubble join success",
+                "data" : {
+                    "emails":emails
+                }
             }),201
     else:
         return error_callback(create_roles_response.json())
@@ -226,7 +231,6 @@ def upload_file():
     Upload file to GCP for the bubble.
     1) Check if user is mentor of the bubble 
     2) Invoke bubble file to upload
-    Note for Brandon later: Bubble Orchestrator must decode email and insert into json payload
     """
     
     try:
