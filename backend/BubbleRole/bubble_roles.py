@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from os import environ, times
 from sqlalchemy.exc import IntegrityError
-
+from flask_cors import CORS
 
 # Instanitating the flask application
 app = Flask(__name__)
@@ -16,6 +16,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL", default="mysql+mysq
 
 # Instanitating the SQLAlchemy DB
 db = SQLAlchemy(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Creating the database object
 # Refer to init.sql for table name and the datatypes

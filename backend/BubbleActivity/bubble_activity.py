@@ -2,9 +2,12 @@
 from flask import Flask, jsonify, request
 from os import environ
 import requests
+from flask_cors import CORS
+
 
 # No SQLAlchemy as it is an orchestrator
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # All Routes that are orchestrated
 if environ.get("PYTHON_ENV", default="DEV") == "PROD":

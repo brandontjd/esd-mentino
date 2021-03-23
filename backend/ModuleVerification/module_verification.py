@@ -2,11 +2,13 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from os import environ, times
+from flask_cors import CORS
 import json
 import jwt
 
 # Instanitating the flask application
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # When developing, run init.sql inside MAMP / WAMP and use this line instead for SQLALCHEMY_DATABASE_URI
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
