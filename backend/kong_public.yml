@@ -6,7 +6,7 @@ services:
     routes:
       - name: user_home
         paths:
-          - /user
+          - /api/user
   - name: protected-endpoint
     url: http://protected-endpoint:5010/protected-endpoint
     plugins:
@@ -17,7 +17,18 @@ services:
     routes:
       - name: protected_endpoint_home
         paths:
-          - /protected-endpoint
+          - /api/protected-endpoint
+  - name: bubble
+    url: http://bubble:5000/bubble
+    plugins:
+      - name: jwt
+        enabled: true
+        config:
+          key_claim_name: kid
+    routes:
+      - name: bubble_home
+        paths:
+          - /api/bubble
 
 consumers:
   - username: userserver

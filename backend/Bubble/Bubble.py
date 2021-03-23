@@ -3,16 +3,16 @@ from flask import Flask, jsonify, request
 from os import environ
 import requests
 import jwt
-# from channel import Channel
+from channel import Channel
 
 # No SQLAlchemy as it is an orchestrator
 app = Flask(__name__)
 
 # All Routes that are orchestrated
 if environ.get("PYTHON_ENV", default="DEV") == "PROD":
-    bubble_activity_host = "http://bubble_details:5001"
-    module_host = "http://bubble_roles:5006"
-    module_verification_host = "http://bubble_files:5005"
+    bubble_activity_host = "http://bubble-activity:5001"
+    module_host = "http://module:5006"
+    module_verification_host = "http://module-verification:5005"
 else:
     bubble_activity_host = "http://localhost:5001"
     module_host = "http://localhost:5006"
@@ -30,13 +30,13 @@ m_edit = module_host + "/module/one" # Supports POST PUT DELETE
 
 mv_grades = module_verification_host + "/module_verification/own" # Supports PUT and GET
 
-# # Activate pika channel for logging purposes
-# pika_channel = Channel(
-#   hostname = environ.get("RABBITMQ_HOSTNAME", default="localhost"),
-#   port = int(environ.get("RABBITMQ_PORT", default="5672")),
-#   exchangename = "esd_exchange",
-#   exchangetype = "topic"
-# )
+# Activate pika channel for logging purposes
+pika_channel = Channel(
+  hostname = environ.get("RABBITMQ_HOSTNAME", default="localhost"),
+  port = int(environ.get("RABBITMQ_PORT", default="5672")),
+  exchangename = "esd_exchange",
+  exchangetype = "topic"
+)
 
 def unavailable_callback(service_name,e):
     return jsonify({
@@ -57,10 +57,16 @@ def decode_jwt(request):
         "email":email
     }
 
-def logging(email,msg):
+def logging(email, msg, log_type="info"):
     pika_channel.basic_publish(
-        routing_key="*.log", 
-        body_dict={ "email": email, "type": "info", "data": { "message": msg } }
+        routing_key="sample.log", 
+        body_dict={ "email": email, "type": log_type, "data": { "message": msg } }
+    )
+
+def send_email(recipient_list, bubble_name, event_type="mentor_joined"):
+    pika_channel.basic_publish(
+        routing_key="sample.email", 
+        body_dict={ "emails": recipient_list, "event": event_type, "bubble_name": bubble_name }
     )
 
 @app.route("/bubble/all",methods=['GET'])
@@ -78,12 +84,14 @@ def get_all_bubbles():
         })
 
     try:
+        logging(email_payload["email"], "Payload to Bubble Activity - " + str(email_payload))
         # Error handling for endpoint availability
         bubble_activity_response = requests.request(method="GET",url=ba_get_all,json=email_payload)
         # Upstream services will create the error message, hence no need to validate the status code
         # Regardless of 200 or 404, we will return it
         return bubble_activity_response.json()
     except Exception as e:
+        logging(email_payload["email"], "Bubble Activity Unreachable - " + str(e), log_type="error")
         return unavailable_callback("Bubble Activity",e)
 
 @app.route("/bubble/one/<int:bubble_id>",methods=['GET'])
@@ -171,6 +179,8 @@ def join_bubble():
                 # Step 2 - They are verified, proceed to join
                 try:
                     bubble_activity_response = requests.request(method="POST",url=ba_join_bubble,json=json_payload)
+                    # # Placeholder for sending emails
+                    # send_email(["kpyar.2019@sis.smu.edu.sg"], "CT Homework")
                     return bubble_activity_response.json()
                 except Exception as e:
                     return unavailable_callback("Bubble Activity",e)
