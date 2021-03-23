@@ -38,30 +38,11 @@ CREATE TABLE IF NOT EXISTS `Bubble` (
 
 INSERT INTO `Bubble` (`bubble_id`, `bubble_name`, `create_timestamp`, `meet_timestamp`, `capacity`, `agenda`, `module_code`) VALUES
 (1, 'IS111 Workshop', 1619798400, 1619798400, 20, 'Recap on dictionaries', 'IS111'),
+(3, 'IS111 Workshop', 1619798400, 1619798400, 20, 'Recap on dictionaries', 'IS111'),
+(4, 'IS111 Workshop', 1619798400, 1619798400, 20, 'Recap on dictionaries', 'IS999'),
 (2, 'IS210 Workshop', 1619798400, 1619798400, 20, 'How to draw workflow diagrams', 'IS210');
 
 -- --------------------------------------------------------
-
---
--- Table structure for table `BubbleComment`
---
-
-DROP TABLE IF EXISTS `BubbleComment`;
-CREATE TABLE IF NOT EXISTS `BubbleComment` (
-  `bubble_id` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `timestamp` int(255) NOT NULL,
-  `comment` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `BubbleComment`
---
-
-INSERT INTO `BubbleComment` (`bubble_id`, `email`, `timestamp`, `comment`) VALUES
-('1', 'b@gmail.com', 1619798400, 'This app is amazing.'),
-('1', 'p@gmail.com', 1619798402, 'I think so too!'),
-('2', 'p@gmail.com', 1619798401, 'This app is amazing.');
 
 -- --------------------------------------------------------
 
@@ -637,12 +618,6 @@ INSERT INTO `User` (`email`, `name`, `password_salt`, `password_hash`) VALUES
 --
 ALTER TABLE `Bubble`
   ADD PRIMARY KEY (`bubble_id`);
-
---
--- Indexes for table `BubbleComment`
---
-ALTER TABLE `BubbleComment`
-  ADD PRIMARY KEY (`bubble_id`,`email`,`timestamp`);
 
 --
 -- Indexes for table `BubbleFile`

@@ -34,9 +34,9 @@ class BubbleRole(db.Model):
 
     def json(self):
         return {
-        "bubble_id": self.bubble_id,
-        "email": self.email,
-        "role": self.role
+            "bubble_id": self.bubble_id,
+            "email": self.email,
+            "role": self.role
         }
 
 
@@ -82,8 +82,7 @@ def get_bubbles_of_participant(email):
     except Exception as err:
         return jsonify({
             "code": 404,
-            "message": "Failed to retrieve bubbles of participant",
-            "data": str(err)
+            "message": "Failed to retrieve bubbles of participant -"+ str(err),
         }), 404
 
 
@@ -110,8 +109,7 @@ def write_bubble_role():
         except Exception as err:
             return jsonify({
                 "code": 404,
-                "message": "Failed to add record to bubble_role db",
-                "data": str(err)
+                "message": "Failed to add record to bubble_role db - "+str(err),
             }), 404
 
     if request.method == 'PUT':
@@ -148,8 +146,7 @@ def write_bubble_role():
         except Exception as err:
             return jsonify({
                 "code": 404,
-                "message": "Failed to update record in bubble_role db",
-                "data": str(err)
+                "message": "Failed to update record in bubble_role db - "+str(err),
             }), 404
 
     if request.method == 'DELETE':
@@ -167,8 +164,7 @@ def write_bubble_role():
         except Exception as err:
             return jsonify({
                 "code": 404,
-                "message": "Failed to delete record in bubble_role db",
-                "data": str(err)
+                "message": "Failed to delete record in bubble_role db - "+str(err),
             }), 404
 
 

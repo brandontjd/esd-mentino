@@ -44,20 +44,24 @@ class Module(db.Model):
     module_code = db.Column(db.String(255), primary_key=True)
     module_name = db.Column(db.String(255), nullable=False)
 
+    def __init__(self, module_code, module_name):
+        self.module_code = module_code
+        self.module_name = module_name
+
+    def json(self):
+        return {
+        "module_code": self.module_code,
+        "module_name": self.module_name
+        }
 
 @app.route("/module_verification/own",methods=['PUT'])
 def update_module_grades():
     """
     Update module grades for mentor
-
     If record does not exist, create new in database
-
     """
-    header = request.headers.get('Authorization')
-    auth_token = header.split(' ')[-1]
-    json_payload = jwt.decode(auth_token, options={ "verify_signature": False })
-    email = json_payload['email']
     json_payload = request.get_json()
+    email = json_payload['email']
     modules_list = json_payload["modules"]
 
     return_list = []
@@ -99,20 +103,15 @@ def update_module_grades():
 def get_module_grades():
     """
     Get already inputted module grades for display
-
     """
-    header = request.headers.get('Authorization')
-    auth_token = header.split(' ')[-1]
-    json_payload = jwt.decode(auth_token, options={ "verify_signature": False })
+    json_payload = request.get_json()
     email = json_payload['email']
-
-    return_list = []
     try:
         verified_modules = ModuleVerification.query.filter(ModuleVerification.email == email).all()
-        return_list = [module.json() for module in verified_modules]
+        return_dict = {module.json()['module_code']:module.json()['module_grade'] for module in verified_modules}
         return jsonify({
             "code": 200,
-            "data": return_list,
+            "data": return_dict,
             "message": "Got module grades success"
             }),200
     
@@ -122,8 +121,6 @@ def get_module_grades():
             "message": "Failed to get module grades",
             "data": str(err)
         }), 404
-
-    
 
 if __name__ == "__main__":
     # There are multiple addresses on machine
