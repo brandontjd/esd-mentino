@@ -171,7 +171,13 @@ def join_bubble():
                 # Step 2 - They are verified, proceed to join
                 try:
                     bubble_activity_response = requests.request(method="POST",url=ba_join_bubble,json=json_payload)
-                    return bubble_activity_response.json()
+                    bubble_activity_data = bubble_activity_response.json()
+                    if bubble_activity_response.status_code in range(200,300):
+                        ### Publish to email queue here ###
+                        print('Sending email ~')
+                        bubble_activity_data.pop('data', None) # Pop away the email data so that frontend doesn't get it
+                        ### Publish to email queue here ### 
+                    return bubble_activity_data
                 except Exception as e:
                     return unavailable_callback("Bubble Activity",e)
 

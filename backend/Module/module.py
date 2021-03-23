@@ -58,7 +58,7 @@ def get_all_modules():
         }), 404
 
 @app.route("/module/one/<string:module_code>",methods=['GET'])
-def get_module(module_code:str):
+def get_module(module_code):
     """
     Get specific module by code
 
