@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "04607512-14dd-46be-a6b4-7580385c39a9",
+		"_postman_id": "ab7a4767-10f3-4ecd-8073-43ee4cd8422e",
 		"name": "TMB - Backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -408,7 +408,7 @@
 			"response": []
 		},
 		{
-			"name": "[SUCCESS] Log In",
+			"name": "[FAIL] Log In",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -438,7 +438,7 @@
 			"response": []
 		},
 		{
-			"name": "[FAIL] Log In",
+			"name": "[SUCCESS] Log In",
 			"request": {
 				"method": "POST",
 				"header": [],
