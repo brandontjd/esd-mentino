@@ -6,77 +6,621 @@
 	},
 	"item": [
 		{
-			"name": "[SUCCESS] Get all bubbles",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
-							"type": "string"
+			"name": "User Scenario 1 - User signup, login and create the bubble",
+			"item": [
+				{
+					"name": "[SUCCESS] Step 1 - Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"brandu.tan@gmail.com\",\n    \"name\": \"Brandon\",\n    \"password\": \"Qwer!234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/user/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"signup"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/api/bubble/all",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"bubble",
-						"all"
-					]
+				{
+					"name": "[SUCCESS] Step 2 - Log In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"brandu.tan@gmail.com\",\n    \"password\": \"Qwer!234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[SUCCESS] Step 3 - Create Bubble",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJyYW5kdS50YW5AZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.8e6whSfGuCAXghfMAKatvoIfxdr52uqCEzUi0TC9niQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951398\",\n    \"capacity\": \"20\",\n    \"agenda\": \"Orchestrator\",\n    \"module_code\": \"IS999\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/one",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"one"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[FAIL] Misc - Log In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"brandu.tan@gmail.com\",\n    \"password\": \"qwer!234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"description": "The testcase is using the following details\n\nUsername: brandu.tan@gmail.com\nPassword: Qwer!234\n\n1. Sign up\n2. Login\n3. View all bubbles\n4. Create bubble\n5. View created bubble"
 		},
 		{
-			"name": "[SUCCESS] Get One Bubble",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
-							"type": "string"
+			"name": "User Scenario 2 Requests",
+			"item": [
+				{
+					"name": "[SUCCESS] Step 1 - Get all bubbles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"all"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/api/bubble/one/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"bubble",
-						"one",
-						"1"
-					]
+				{
+					"name": "[SUCCESS] Step 2(a) - Get Declared Modules",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/module_verification/own",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"module_verification",
+								"own"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[SUCCESS] Step 2(b) - Get All Modules",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/module/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"module",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[SUCCESS] Step 3(a) - Declare Modules",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"modules\":[\n        {\n            \"module_code\":\"IS999\",\n            \"module_grade\":\"A\"\n        },\n        {\n            \"module_code\":\"IS986\",\n            \"module_grade\":\"A\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/module_verification/own",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"module_verification",
+								"own"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[SUCCESS] Step 3(b) - Show Update Declared Modules",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/module_verification/own",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"module_verification",
+								"own"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[SUCCESS] Step 4 - Join Bubble as Mentor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bubble_id\":5,\n    \"role\":\"mentor\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/join",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"join"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[SUCCESS] Step 5 - Get One Bubble",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/one/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"one",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[SUCCESS] Misc - Get One Module",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/module/one/IS111",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"module",
+								"one",
+								"IS111"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[FAIL] Misc - Join Bubble as Mentor due to lack of verification",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bubble_id\":4,\n    \"role\":\"mentor\",\n    \"email\":\"b@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/join",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"join"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"description": "Assumed logged in here.\n\nUsername is Brandon\nemail is b@gmail.com\n\nJWT token is provided in this testcase. \n\n1. Assumed logged in\n2. View all bubbles\n3. Go to module declaration page and get all modules to declare\n4. Declare module\n5. Join bubble as mentor\n6. View joined bubble\n*backend should trigger email, need to check"
 		},
 		{
-			"name": "[SUCCESS] Create Bubble",
+			"name": "User Scenario 3 Requests",
+			"item": [
+				{
+					"name": "[SUCCESS] Step 1 - Get all bubbles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[SUCCESS] Step 2 - Get One Bubble",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/one/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"one",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[SUCCESS] Step 3 - Upload file",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/brandontan/esd-mentino/backend/BubbleRole/requirements.txt"
+								},
+								{
+									"key": "bubble_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Bubble super orchestrator",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[SUCCESS] Step 4 - Get One Bubble (with updated files)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/bubble/one/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bubble",
+								"one",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Mentor uploads workshop materials in a Bubble\n1. Assumed logged in\n2. View active bubbles\n3. Go to specific bubble\n4. Upload material\n5. Display bubble again but with uploaded files"
+		},
+		{
+			"name": "[SUCCESS] Misc - Join Bubble as Participant",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJlbWFpbCI6ImJyYW5kdS50YW5AZ21haWwuY29tIiwibmFtZSI6IkJyYW5kb24ifQ.8e6whSfGuCAXghfMAKatvoIfxdr52uqCEzUi0TC9niQ",
 							"type": "string"
 						}
 					]
@@ -85,98 +629,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"bubble_name\": \"ESD Backend Coding\",\n    \"meet_timestamp\": \"1614951398\",\n    \"capacity\": \"20\",\n    \"agenda\": \"Orchestrator\",\n    \"module_code\": \"IS999\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/bubble/one",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"bubble",
-						"one"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[SUCCESS] Upload file",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/C:/Users/yarkh/Desktop/CS/PROJECTS/esd-mentino/backend/BubbleFile/requirements.txt"
-						},
-						{
-							"key": "bubble_id",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "description",
-							"value": "Bubble super orchestrator",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/bubble/upload",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"bubble",
-						"upload"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[FAIL] Join Bubble as Mentor due to lack of verification",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"bubble_id\":4,\n    \"role\":\"mentor\",\n    \"email\":\"b@gmail.com\"\n}",
+					"raw": "{\n    \"bubble_id\":5,\n    \"role\":\"participant\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -194,274 +647,6 @@
 						"api",
 						"bubble",
 						"join"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[SUCCESS] Join Bubble as Mentor",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"bubble_id\":3,\n    \"role\":\"mentor\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/bubble/join",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"bubble",
-						"join"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[SUCCESS] Declare Modules",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"modules\":[\n        {\n            \"module_code\":\"IS987\",\n            \"module_grade\":\"A\"\n        },\n        {\n            \"module_code\":\"IS986\",\n            \"module_grade\":\"A\"\n        }\n    ]\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/bubble/module_verification/own",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"bubble",
-						"module_verification",
-						"own"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[SUCCESS] Get Declared Modules",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/api/bubble/module_verification/own",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"bubble",
-						"module_verification",
-						"own"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[SUCCESS] Get All Modules",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/api/bubble/module/all",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"bubble",
-						"module",
-						"all"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[SUCCESS] Get One Module",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjBhT1IzMnQ4eWNMYlVkVnU3akxSUDJIaElEUDZuMmVFIn0.eyJuYW1lIjoiQnJhbmRvbiIsImVtYWlsIjoiYkBnbWFpbC5jb20ifQ.ajcZwkDMZ9hgr9g9vERsNyTGUnj0f83_vJHYUVeyA1c",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8000/api/bubble/module/one/IS111",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"bubble",
-						"module",
-						"one",
-						"IS111"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[SUCCESS] Sign Up",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"ap@gmail.com\",\n    \"name\": \"Ah Phyo\",\n    \"password\": \"Qwer!234\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/user/signup",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"user",
-						"signup"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[FAIL] Log In",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"p@gmail.com\",\n    \"password\": \"qwer!234\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/user/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"user",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[SUCCESS] Log In",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"p@gmail.com\",\n    \"password\": \"Qwer!234\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8000/api/user/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"user",
-						"login"
 					]
 				}
 			},
