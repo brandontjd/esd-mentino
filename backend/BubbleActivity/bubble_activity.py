@@ -213,9 +213,15 @@ def join_bubble():
         return unavailable_callback("Bubble Roles")
 
     if create_roles_response.status_code in range(200,300):
+        bubble_id = request.get_json()['bubble_id']
+        bubble_participants = requests.request(method="GET",url=br_bubble_participant+str(bubble_id)).json()["data"]
+        emails = list(bubble_participants.keys())
         return jsonify({
                 "code":201,
-                "message":"bubble join success"
+                "message":"bubble join success",
+                "data" : {
+                    "emails":emails
+                }
             }),201
     else:
         return error_callback(create_roles_response.json())
