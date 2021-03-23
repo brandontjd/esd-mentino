@@ -10,9 +10,9 @@ app = Flask(__name__)
 
 # All Routes that are orchestrated
 if environ.get("PYTHON_ENV", default="DEV") == "PROD":
-    bubble_activity_host = "http://bubble_details:5001"
-    module_host = "http://bubble_roles:5006"
-    module_verification_host = "http://bubble_files:5005"
+    bubble_activity_host = "http://bubble-activity:5001"
+    module_host = "http://module:5006"
+    module_verification_host = "http://module-verification:5005"
 else:
     bubble_activity_host = "http://localhost:5001"
     module_host = "http://localhost:5006"

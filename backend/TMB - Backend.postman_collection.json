@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "d9089746-0ac7-46c3-84dc-004c75ace491",
-		"name": "TMB - Bubble",
+		"_postman_id": "04607512-14dd-46be-a6b4-7580385c39a9",
+		"name": "TMB - Backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -21,16 +21,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble/all",
+					"raw": "http://localhost:8000/api/bubble/all",
 					"protocol": "http",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"localhost"
 					],
-					"port": "5000",
+					"port": "8000",
 					"path": [
+						"api",
 						"bubble",
 						"all"
 					]
@@ -54,16 +52,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble/one/1",
+					"raw": "http://localhost:8000/api/bubble/one/1",
 					"protocol": "http",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"localhost"
 					],
-					"port": "5000",
+					"port": "8000",
 					"path": [
+						"api",
 						"bubble",
 						"one",
 						"1"
@@ -97,16 +93,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble/one",
+					"raw": "http://localhost:8000/api/bubble/one",
 					"protocol": "http",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"localhost"
 					],
-					"port": "5000",
+					"port": "8000",
 					"path": [
+						"api",
 						"bubble",
 						"one"
 					]
@@ -135,7 +129,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/brandontan/esd-mentino/requirements.txt"
+							"src": "/C:/Users/yarkh/Desktop/CS/PROJECTS/esd-mentino/backend/BubbleFile/requirements.txt"
 						},
 						{
 							"key": "bubble_id",
@@ -146,25 +140,18 @@
 							"key": "description",
 							"value": "Bubble super orchestrator",
 							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "b@gmail.com",
-							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble/upload",
+					"raw": "http://localhost:8000/api/bubble/upload",
 					"protocol": "http",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"localhost"
 					],
-					"port": "5000",
+					"port": "8000",
 					"path": [
+						"api",
 						"bubble",
 						"upload"
 					]
@@ -197,16 +184,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble/join",
+					"raw": "http://localhost:8000/api/bubble/join",
 					"protocol": "http",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"localhost"
 					],
-					"port": "5000",
+					"port": "8000",
 					"path": [
+						"api",
 						"bubble",
 						"join"
 					]
@@ -239,16 +224,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble/join",
+					"raw": "http://localhost:8000/api/bubble/join",
 					"protocol": "http",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"localhost"
 					],
-					"port": "5000",
+					"port": "8000",
 					"path": [
+						"api",
 						"bubble",
 						"join"
 					]
@@ -281,16 +264,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble/module_verification/own",
+					"raw": "http://localhost:8000/api/bubble/module_verification/own",
 					"protocol": "http",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"localhost"
 					],
-					"port": "5000",
+					"port": "8000",
 					"path": [
+						"api",
 						"bubble",
 						"module_verification",
 						"own"
@@ -315,16 +296,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble/module_verification/own",
+					"raw": "http://localhost:8000/api/bubble/module_verification/own",
 					"protocol": "http",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"localhost"
 					],
-					"port": "5000",
+					"port": "8000",
 					"path": [
+						"api",
 						"bubble",
 						"module_verification",
 						"own"
@@ -349,16 +328,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble/module/all",
+					"raw": "http://localhost:8000/api/bubble/module/all",
 					"protocol": "http",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"localhost"
 					],
-					"port": "5000",
+					"port": "8000",
 					"path": [
+						"api",
 						"bubble",
 						"module",
 						"all"
@@ -383,20 +360,108 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://0.0.0.0:5000/bubble/module/one/IS111",
+					"raw": "http://localhost:8000/api/bubble/module/one/IS111",
 					"protocol": "http",
 					"host": [
-						"0",
-						"0",
-						"0",
-						"0"
+						"localhost"
 					],
-					"port": "5000",
+					"port": "8000",
 					"path": [
+						"api",
 						"bubble",
 						"module",
 						"one",
 						"IS111"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Sign Up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"ap@gmail.com\",\n    \"name\": \"Ah Phyo\",\n    \"password\": \"Qwer!234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[SUCCESS] Log In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"p@gmail.com\",\n    \"password\": \"qwer!234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[FAIL] Log In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"p@gmail.com\",\n    \"password\": \"Qwer!234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"login"
 					]
 				}
 			},

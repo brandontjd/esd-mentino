@@ -65,6 +65,7 @@ services:
             dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
             JWT_SECRET: ${JWT_SECRET}
             JWT_KEY: ${JWT_KEY}
+            PYTHONUNBUFFERED: 1
         image: user:1.0
         container_name: user_container
         networks:
@@ -79,6 +80,7 @@ services:
             RABBITMQ_HOSTNAME: "rabbitmq"
             RABBITMQ_PORT: "5672"
             LOGDNA_INGESTION: ${LOGDNA_INGESTION}
+            PYTHONUNBUFFERED: 1
         image: activity-log:1.0
         container_name: activity_log_container
         networks:
@@ -95,6 +97,7 @@ services:
             RABBITMQ_PORT: "5672"
             EMAIL_USERNAME: ${EMAIL_USERNAME}
             EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+            PYTHONUNBUFFERED: 1
         image: send-email:1.0
         container_name: send_email_container
         networks:
@@ -110,8 +113,107 @@ services:
             PYTHON_ENV: PROD
             RABBITMQ_HOSTNAME: "rabbitmq"
             RABBITMQ_PORT: "5672"
+            PYTHONUNBUFFERED: 1
         image: protected-endpoint:1.0
         container_name: protected_endpoint_container
+        networks:
+            - kong-net
+        depends_on:
+            - rabbitmq
+        restart: always
+
+    bubble-details:
+        build:
+            context: ./BubbleDetails
+        environment:
+            PYTHON_ENV: PROD
+            dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
+            PYTHONUNBUFFERED: 1
+        image: bubble-details:1.0
+        container_name: bubble_details_container
+        networks:
+            - kong-net
+        depends_on:
+            - mysqldb
+
+    bubble-roles:
+        build:
+            context: ./BubbleRole
+        environment:
+            PYTHON_ENV: PROD
+            dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
+            PYTHONUNBUFFERED: 1
+        image: bubble-roles:1.0
+        container_name: bubble_roles_container
+        networks:
+            - kong-net
+        depends_on:
+            - mysqldb
+
+    bubble-files:
+        build:
+            context: ./BubbleFile
+        environment:
+            PYTHON_ENV: PROD
+            dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
+            PYTHONUNBUFFERED: 1
+        image: bubble-files:1.0
+        container_name: bubble_files_container
+        networks:
+            - kong-net
+        depends_on:
+            - mysqldb
+
+    bubble-activity:
+        build:
+            context: ./BubbleActivity
+        environment:
+            PYTHON_ENV: PROD
+            PYTHONUNBUFFERED: 1
+        image: bubble-activity:1.0
+        container_name: bubble_activity_container
+        networks:
+            - kong-net
+        depends_on:
+            - mysqldb
+
+    module:
+        build:
+            context: ./Module
+        environment:
+            PYTHON_ENV: PROD
+            dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
+            PYTHONUNBUFFERED: 1
+        image: module:1.0
+        container_name: module_container
+        networks:
+            - kong-net
+        depends_on:
+            - mysqldb
+
+    module-verification:
+        build:
+            context: ./ModuleVerification
+        environment:
+            PYTHON_ENV: PROD
+            dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
+            PYTHONUNBUFFERED: 1
+        image: module-verification:1.0
+        container_name: module_verification_container
+        networks:
+            - kong-net
+        depends_on:
+            - mysqldb
+
+    bubble:
+        build:
+            context: ./Bubble
+        environment:
+            PYTHON_ENV: PROD
+            dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
+            PYTHONUNBUFFERED: 1
+        image: bubble:1.0
+        container_name: bubble_container
         networks:
             - kong-net
         depends_on:
