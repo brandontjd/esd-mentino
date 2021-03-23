@@ -50,8 +50,6 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         networks:
             - kong-net
-        ports:
-            - "3600:3306"
         healthcheck:
             test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
             timeout: 20s
@@ -61,6 +59,8 @@ services:
         build:
             context: ./User
         environment:
+            RABBITMQ_HOSTNAME: "rabbitmq"
+            RABBITMQ_PORT: "5672"
             PYTHON_ENV: PROD
             dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
             JWT_SECRET: ${JWT_SECRET}
@@ -72,6 +72,8 @@ services:
             - kong-net
         depends_on:
             - mysqldb
+            - rabbitmq
+        restart: always
     
     activity-log:
         build:
