@@ -81,7 +81,6 @@ class Channel:
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.hostname, port=self.port))
     if self.channel.is_closed:
         self.channel = self.connection.channel()
-        self.channel.exchange_declare(exchange=self.exchangename, exchange_type=self.exchangetype)
 
   def get_wrapped_callback(self, callback):
     def wrapped_callback(*args, **kwargs):
