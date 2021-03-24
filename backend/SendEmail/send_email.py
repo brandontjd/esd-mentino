@@ -37,7 +37,7 @@ def callback(channel, method, properties, body): # required signature for the ca
             "",
             body
         ])
-
+        
         server = smtplib.SMTP('smtp.gmail.com:587')
         server.ehlo()
         server.starttls()

@@ -33,9 +33,9 @@ services:
             KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
         ports:
             - "8000:8000/tcp"
-            - "8001:8001/tcp"
-            - "8443:8443/tcp"
-            - "8444:8444/tcp"
+            # - "8001:8001/tcp"
+            # - "8443:8443/tcp"
+            # - "8444:8444/tcp"
             
     mysqldb:
         image: mysql:8.0
@@ -50,8 +50,6 @@ services:
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         networks:
             - kong-net
-        ports:
-            - "3600:3306"
         healthcheck:
             test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
             timeout: 20s
@@ -61,6 +59,8 @@ services:
         build:
             context: ./User
         environment:
+            RABBITMQ_HOSTNAME: "rabbitmq"
+            RABBITMQ_PORT: "5672"
             PYTHON_ENV: PROD
             dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
             JWT_SECRET: ${JWT_SECRET}
@@ -72,6 +72,8 @@ services:
             - kong-net
         depends_on:
             - mysqldb
+            - rabbitmq
+        restart: always
     
     activity-log:
         build:

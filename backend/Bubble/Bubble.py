@@ -4,9 +4,11 @@ from os import environ
 import requests
 import jwt
 from channel import Channel
+from flask_cors import CORS
 
 # No SQLAlchemy as it is an orchestrator
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # All Routes that are orchestrated
 if environ.get("PYTHON_ENV", default="DEV") == "PROD":
@@ -84,14 +86,14 @@ def get_all_bubbles():
         })
 
     try:
-        logging(email_payload["email"], "Payload to Bubble Activity - " + str(email_payload))
+        logging(email_payload["email"], "Get All Bubbles | Payload to Bubble Activity - " + str(email_payload))
         # Error handling for endpoint availability
         bubble_activity_response = requests.request(method="GET",url=ba_get_all,json=email_payload)
         # Upstream services will create the error message, hence no need to validate the status code
-        # Regardless of 200 or 404, we will return it
+        # Regardless of 200 or 404, we will return it & likewise for the other services
         return bubble_activity_response.json()
     except Exception as e:
-        logging(email_payload["email"], "Bubble Activity Unreachable - " + str(e), log_type="error")
+        logging(email_payload["email"], "Get All Bubbles | Bubble Activity Unreachable - " + str(e), log_type="error")
         return unavailable_callback("Bubble Activity",e)
 
 @app.route("/bubble/one/<int:bubble_id>",methods=['GET'])
@@ -110,9 +112,11 @@ def get_one_bubble(bubble_id):
 
     try:
         # Error handling for endpoint availability
+        logging(email_payload["email"], "Get One Bubble | Payload to Bubble Activity - " + str(email_payload))
         bubble_activity_response = requests.request(method="GET",url=ba_get_one+str(bubble_id),json=email_payload)
         return bubble_activity_response.json()
     except Exception as e:
+        logging(email_payload["email"], "Get One Bubble | Bubble Activity Unreachable - " + str(e), log_type="error")
         return unavailable_callback("Bubble Activity",e)
 
 @app.route("/bubble/one",methods=['POST'])
@@ -133,9 +137,11 @@ def create_bubble():
     json_payload["email"] = email_payload['email']
     try:
         # Error handling for endpoint availability
+        logging(email_payload["email"], "Create Bubble | Payload to Bubble Activity - " + str(json_payload))
         bubble_activity_response = requests.request(method="POST",url=ba_create_bubble,json=json_payload)
         return bubble_activity_response.json()
     except Exception as e:
+        logging(email_payload["email"], "Create Bubble | Bubble Activity Unreachable - " + str(e), log_type="error")
         return unavailable_callback("Bubble Activity",e)
 
 @app.route("/bubble/join",methods=["POST"])
@@ -160,29 +166,39 @@ def join_bubble():
 
     # Retrieve module code for bubble_id
     try:
+        logging(email_payload["email"], "Join Bubble (Get Module Code) | Payload to Bubble Activity - " + str(email_payload))
         bubble_activity_response = requests.request(method="GET",url=ba_get_one+str(bubble_id),json=email_payload)
         bubble_data = bubble_activity_response.json()
         module_code = bubble_data['data']['module_code']
+        bubble_name = bubble_data['data']['bubble_name']
     except Exception as e:
+        logging(email_payload["email"], "Join Bubble (Get Module Code) | Bubble Activity Unreachable - " + str(e), log_type="error")
         return unavailable_callback("Bubble Activity",e)
 
     if role == 'mentor':
         # Step 1 - check what they are verified for
         try:
+            logging(email_payload["email"], "Join Bubble (Get Module Verification) | Payload to Module Verification - " + str(email_payload))
             module_verification_response = requests.request(method="GET",url=mv_grades,json=email_payload)
             verification_data = module_verification_response.json()
         except Exception as e:
+            logging(email_payload["email"], "Join Bubble (Get Module Verification) | Module Verification Unreachable - " + str(e), log_type="error")
             return unavailable_callback("Module Verification",e)
         
         if module_code in verification_data['data']:
             if verification_data['data'][module_code] in ['A-','A','A+']:
                 # Step 2 - They are verified, proceed to join
                 try:
+                    logging(email_payload["email"], "Join Bubble (Joining Stage - Mentor) | Payload to Bubble Activity - " + str(json_payload))
                     bubble_activity_response = requests.request(method="POST",url=ba_join_bubble,json=json_payload)
-                    # # Placeholder for sending emails
-                    # send_email(["kpyar.2019@sis.smu.edu.sg"], "CT Homework")
-                    return bubble_activity_response.json()
+                    bubble_activity_data = bubble_activity_response.json()
+                    if bubble_activity_response.status_code in range(200,300):
+                        emails = bubble_activity_data['data']['emails']
+                        send_email(emails,bubble_name)  # No error handler here, as RabbitMQ will catch if email service is not available 
+                    bubble_activity_data.pop('data', None) # Pop away the email data so that frontend doesn't get it - data privacy
+                    return bubble_activity_data
                 except Exception as e:
+                    logging(email_payload["email"], "Join Bubble (Joining Stage - Mentor) | Bubble Activity Unreachable - " + str(e), log_type="error")
                     return unavailable_callback("Bubble Activity",e)
 
         # Catch all return, because if the "if" above doesn't trigger, the code will flow here
@@ -193,9 +209,13 @@ def join_bubble():
     else:
         # it will be participant if not mentor
         try:
-            bubble_role_response = requests.request(method="POST",url=ba_join_bubble,json=json_payload)
-            return bubble_role_response.json()
+            logging(email_payload["email"], "Join Bubble (Joining Stage - Participant) | Payload to Bubble Activity - " + str(json_payload))
+            bubble_activity_response = requests.request(method="POST",url=ba_join_bubble,json=json_payload)
+            bubble_activity_data = bubble_activity_response.json()
+            bubble_activity_data.pop('data', None)
+            return bubble_activity_data
         except Exception as e:
+            logging(email_payload["email"], "Join Bubble (Joining Stage - Participant) | Bubble Activity Unreachable - " + str(e), log_type="error")
             return unavailable_callback("Bubble Roles",e)
         
 @app.route("/bubble/upload",methods=["POST"])
@@ -215,9 +235,11 @@ def upload_file():
     form_payload["email"] = email_payload['email']
     try:
         file = request.files['file']
+        logging(email_payload["email"], "Upload File | Payload to Bubble Activity - " + str(form_payload))
         upload_file_response = requests.request(method="POST",url=ba_upload,data=form_payload,files={'file':(file.filename,file.stream,file.content_type,file.headers)})
         return upload_file_response.json()
     except Exception as e:
+        logging(email_payload["email"], "Upload File | Bubble Activity Unreachable - " + str(e), log_type="error")
         return unavailable_callback("Bubble Activity",e)
 
 @app.route("/bubble/module_verification/own",methods=['PUT'])
@@ -232,9 +254,11 @@ def module_verification_declaration():
     json_payload = request.get_json()
     json_payload['email'] = email_payload['email']
     try:
+        logging(email_payload["email"], "Module Verification Declaration | Payload to Module Verification - " + str(json_payload))
         module_verification_response = requests.request(method="PUT",url=mv_grades,json=json_payload)
         return module_verification_response.json()
     except Exception as e:
+        logging(email_payload["email"], "Module Verification Declaration | Module Verification Unreachable - " + str(e), log_type="error")
         return unavailable_callback("Module Verification",e)
 
 @app.route("/bubble/module_verification/own",methods=['GET'])
@@ -247,25 +271,45 @@ def get_declared_modules():
             "message":"User is not authenticated."
         })
     try:
+        logging(email_payload["email"], "Get Declared Modules | Payload to Module Verification - " + str(email_payload))
         module_verification_response = requests.request(method="GET",url=mv_grades,json=email_payload)
         return module_verification_response.json()
     except Exception as e:
+        logging(email_payload["email"], "Get Declared Modules | Module Verification Unreachable - " + str(e), log_type="error")
         return unavailable_callback("Module Verification",e)
     
 @app.route("/bubble/module/all",methods=['GET'])
 def get_all_modules():
     try:
+        email_payload = decode_jwt(request)
+    except:
+        return jsonify({
+            "code":403,
+            "message":"User is not authenticated."
+        })
+    try:
+        logging(email_payload["email"], "Get All Modules | Payload to Module - None")
         module_response = requests.request(method="GET",url=m_get_all)
         return module_response.json()
     except Exception as e:
+        logging(email_payload["email"], "Get All Modules | Module Unreachable - " + str(e), log_type="error")
         return unavailable_callback("Module",e)
 
 @app.route("/bubble/module/one/<string:module_code>",methods=['GET'])
 def get_one_module(module_code):
     try:
+        email_payload = decode_jwt(request)
+    except:
+        return jsonify({
+            "code":403,
+            "message":"User is not authenticated."
+        })
+    try:
+        logging(email_payload["email"], "Get Module | Payload to Module - None")
         module_response = requests.request(method="GET",url=m_get_one+str(module_code))
         return module_response.json()
     except Exception as e:
+        logging(email_payload["email"], "Get Module | Module Unreachable - " + str(e), log_type="error")
         return unavailable_callback("Module",e)
 
 if __name__ == "__main__":

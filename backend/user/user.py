@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 from os import environ, times
+from channel import Channel
 from flask_cors import CORS
 
 import hashlib
@@ -19,6 +20,19 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+# Activate pika channel for logging purposes
+pika_channel = Channel(
+  hostname = environ.get("RABBITMQ_HOSTNAME", default="localhost"),
+  port = int(environ.get("RABBITMQ_PORT", default="5672")),
+  exchangename = "esd_exchange",
+  exchangetype = "topic"
+)
+
+def logging(email, msg, log_type="info"):
+    pika_channel.basic_publish(
+        routing_key="sample.log", 
+        body_dict={ "email": email, "type": log_type, "data": { "message": msg } }
+    )
 class User(db.Model):
   __tablename__ = "User"
 
@@ -107,6 +121,7 @@ def log_in():
 
     verified = user.password_hash == input_password_hash
     if not verified:
+      logging(input_email, "Login | Wrong Password")
       return jsonify({
           "code": 401,
           "message": "wrong password",
@@ -120,6 +135,7 @@ def log_in():
             "JWT_KEY", default="kidOnly4localTes1ing")},
     )
 
+    logging(input_email, "Login | Success - " + str(input_email))
     return jsonify({
         "code": 200,
         "message": "login success",
@@ -127,6 +143,7 @@ def log_in():
     }), 200
 
   except Exception as err:
+    logging(input_email, "Login | Error - " + str(err))
     return jsonify({
         "code": 500,
         "message": "Failed to login",

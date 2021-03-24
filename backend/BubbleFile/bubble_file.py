@@ -8,6 +8,7 @@ from datetime import datetime
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import werkzeug
 from google.cloud import storage
@@ -46,6 +47,7 @@ class BucketConnector:
             })
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("dbURL",default='mysql+mysqlconnector://root:root@localhost:3306/esd_db')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
