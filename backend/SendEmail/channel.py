@@ -71,8 +71,13 @@ class Channel:
     try:
         self.connection.process_data_events()
         return True
-    except pika.exceptions.AMQPError as e:
+    except (pika.exceptions.AMQPError, ValueError) as e:
         print("AMQP Error:", e)
+        print("...closing connection.")
+        try:
+          self.connection.close()
+        except pika.exceptions.ConnectionWrongStateError:
+          pass
         print("...creating a new connection.")
         return False
 
