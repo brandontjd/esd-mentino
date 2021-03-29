@@ -54,7 +54,6 @@ def get_single_bubble_detail(bubble_id: int):
     :rtype: json
     """
     bubble = Bubble.query.filter(Bubble.bubble_id == bubble_id).first()
-
     if bubble:
         bubble_json = bubble.json()
         return jsonify({
@@ -75,9 +74,8 @@ def get_all_bubble_detail():
     :return: all bubble data if available
     :rtype: json
     """
-    bubbles = Bubble.query.all()
+    bubbles = Bubble.query.filter(Bubble.meet_timestamp >= datetime.now().timestamp()).all()
     if bubbles:
-
         bubble_json = [bubble.json() for bubble in bubbles]
         return jsonify({
             "code": 200,

@@ -143,3 +143,4 @@ backend/BubbleFile/gcp-credentials.json
 backend/.DS_Store
 .DS_Store
 .DS_Store?
+frontend_debugging/*
