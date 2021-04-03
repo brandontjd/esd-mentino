@@ -94,7 +94,7 @@
           class="btn btn-light"
           style="padding: 10px"
           v-on:click="showform"
-          v-if="bubble_details.role == 'mentor'"
+          v-if="bubble_details.role === 'mentor'"
         >
           Add File
         </button>
@@ -102,7 +102,7 @@
         <br /><br />
         <!-- buttons -->
         <button
-          v-if="bubble_details.role == 'None'"
+          v-if="bubble_details.role === 'None'"
           class="btn btn-secondary ml-3"
           style="float: right"
           @click.prevent="joinAsMentee"
@@ -110,7 +110,7 @@
           Join Bubble as Mentee
         </button>
         <button
-          v-if="bubble_details.role == 'None'"
+          v-if="bubble_details.role === 'None' && !bubble_details.mentor_found"
           class="btn btn-secondary"
           style="float: right"
           @click.prevent="joinAsMentor"
