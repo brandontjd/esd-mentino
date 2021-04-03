@@ -92,18 +92,16 @@ export default {
           password: this.password,
         })
         .then((response) => {
-          this.loading = false;
           var result = response.data;
           localStorage.setItem("token", result.data);
           this.$router.push("/explore");
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
+          console.err(err);
           alert("Email/password incorrect!");
+        }).finally(() => {
+          this.loading = false;
         });
-
-     
     },
   },
 };

@@ -3,7 +3,6 @@
     class="navbar navbar-expand-lg"
     style="background-color: rgb(28, 28, 76); color: white; font-size: 25px"
   >
-    <!-- <div class="container-fluid"> -->
     <div class="navbar-brand">The Mentoring Bubble</div>
 
     <div style="padding-top: 20px">
@@ -34,8 +33,6 @@
         </li>
       </ul>
     </div>
-
-    <!-- </div> -->
   </nav>
 </template>
 
@@ -53,13 +50,11 @@ export default {
   },
 
   created() {
-    // setInterval(() => {
     if (localStorage.token) {
       this.showLogout = true;
     } else {
       this.showLogout = false;
     }
-    // }, 1)
   },
   methods: {
     logOut() {
@@ -82,7 +77,6 @@ export default {
 
     changeExplore() {
       var currentUrl = window.location.pathname;
-      console.log(currentUrl);
       if (currentUrl == "/explore") {
         this.explore_color = "color:#ffd700;";
       }
@@ -90,7 +84,6 @@ export default {
     },
     changeActive() {
       var currentUrl = window.location.pathname;
-      // console.log(currentUrl);
       if (currentUrl == "/active") {
         this.active_color = "color:#ffd700;";
       }
@@ -98,7 +91,6 @@ export default {
     },
     changeSettings() {
       var currentUrl = window.location.pathname;
-      // console.log(currentUrl);
       if (currentUrl == "/settings" || currentUrl == "/verifiedmods" ) {
         this.settings_color = "color:#ffd700;";
       }
@@ -109,8 +101,8 @@ export default {
   },
   watch: {
     jwt() {
-      console.log(this.jwt);
-      console.log(this.showLogout);
+      // console.log(this.jwt);
+      // console.log(this.showLogout);
     },
   },
 };

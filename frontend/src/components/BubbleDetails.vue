@@ -53,36 +53,29 @@
             <h6>Current Number of Particpants</h6>
             <div>{{ bubble_details.num_participants }}</div>
           </div>
-           <div class="col">
-            
-          </div>
+          <div class="col"></div>
         </div>
 
         <br /><br />
 
-                <!-- agenda -->
+        <!-- agenda -->
         <div class="row">
           <div class="col">
             <h6>Agenda</h6>
             <div>{{ bubble_details.agenda }}</div>
           </div>
-
-         
         </div>
 
         <br /><br />
-
-
-
 
         <!-- Show list of files Attachments -->
 
         <div class="row">
           <div class="col">
             <h6>File Attachments</h6>
-            <div v-if="bubble_details.files && bubble_details.files.length > 1">
+            <div v-if="bubble_details.files && bubble_details.files.length > 0">
               <div v-for="file in bubble_details.files" :key="file.blob_url">
-                <li>
+                <li v-if="file.description">
                   {{ file.description }}:
                   <a :href="file.blob_url">{{ file.blob_url }}</a>
                 </li>
@@ -213,23 +206,16 @@ export default {
 
   async mounted() {
     this.loading = true;
-
     if (localStorage.moreDetails_bubble_id) {
-      console.log("hi");
       this.bubble_id = localStorage.moreDetails_bubble_id;
     }
-
     const bubble_details = await axios.get(
       HOSTNAME + "/api/bubble/one/" + this.bubble_id,
       {
         headers: { Authorization: `Bearer ${localStorage.token}` },
       }
     );
-
     this.bubble_details = bubble_details.data.data;
-    console.log(this.bubble_details);
-    // console.log(bubble_details.data.data.files);
-
     this.loading = false;
   },
 
@@ -298,20 +284,15 @@ export default {
       } else {
         this.show_form = "";
       }
-
-      console.log(this.show_form);
     },
 
     // Upload new file button
     submitFile() {
       this.loading = true;
-
       let formData = new FormData();
       formData.append("file", this.file);
       formData.append("bubble_id", this.bubble_details.bubble_id);
       formData.append("description", this.description);
-
-      console.log(typeof formData);
 
       axios
         .post(HOSTNAME + "/api/bubble/upload", formData, {
@@ -322,7 +303,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response);
           if (response.data.code == 415) {
             alert(
               "Invalid file type! Only 'pdf', 'docx', 'pptx', 'txt' allowed!"
@@ -338,24 +318,21 @@ export default {
           // this.$router.push("/active");
         })
         .catch((err) => {
-          console.log(err);
+          console.err(err);
           alert("Failed upload");
+        })
+        .finally(() => {
+          this.loading = false;
         });
-
-      this.loading = false;
-      // window.location.reload();
     },
 
     // Handle file changes(Part of file upload)
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
-      console.log("file change");
     },
 
     joinAsMentee() {
       this.loading = true;
-        console.log(this.loading, "hi");
-
 
       axios
         .post(
@@ -369,20 +346,15 @@ export default {
           }
         )
         .then((response) => {
-          this.loading = false;
-          console.log(this.loading, "bye");
-          console.log(response.data.message);
-          //////////////////////////////////
           alert(response.data.message);
           this.$router.push("/active");
         })
         .catch((err) => {
-          console.log(err);
+          console.err(err);
           alert("Failed to join as Mentee!");
+        }).finally(() => {
+          this.loading = false;
         });
-
-      
-      
     },
 
     joinAsMentor() {
@@ -403,8 +375,6 @@ export default {
           }
         )
         .then((response) => {
-          this.loading = false;
-          console.log(response.data.message);
           if (response.data.code == 403) {
             alert(
               "Failed to join as Mentor! Please verify module under Settings first!"
@@ -415,11 +385,11 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.err(err);
           alert("Failed to join as Mentor!");
+        }).finally(() => {
+          this.loading = false;
         });
-
-      
     },
   },
 };

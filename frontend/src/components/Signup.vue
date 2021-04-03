@@ -159,12 +159,9 @@ export default {
         name: this.Name,
         password: this.password1,
       };
-      console.log("SUBMITTED");
       axios
         .post(HOSTNAME + "/api/user/signup", data)
-        .then((response) => {
-          var result = response.data;
-          console.log(result);
+        .then(() => {
           alert("Account created successfully!");
           this.$router.push("/");
         })
@@ -174,7 +171,7 @@ export default {
           this.Name = "";
           this.password1 = "";
           this.password2 = "";
-          alert("Error 500: Account already exists!");
+          alert("Account already exists!");
         }).finally(() =>{
           this.loading = false;
         });

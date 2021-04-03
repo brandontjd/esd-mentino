@@ -35,9 +35,7 @@
 <script>
 import axios from "axios";
 import NavBar from "./NavBar";
-// Import component
 import Loading from "vue-loading-overlay";
-// Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 import { HOSTNAME } from "../config.js";
 
@@ -82,7 +80,6 @@ export default {
       var tokens = jwt.split(".");
       // extract email and name
       var details = atob(tokens[1]);
-      // console.log(details);
       this.name = JSON.parse(details).name;
       this.email = JSON.parse(details).email;
     } else {

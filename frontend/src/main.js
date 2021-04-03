@@ -9,7 +9,6 @@ import CreateBubble from "./components/CreateBubble.vue";
 import BubbleDetails from "./components/BubbleDetails.vue";
 import Settings from "./components/Settings.vue";
 import VerifiedMods from "./components/VerifiedMods.vue";
-import CurrentMods from "./components/CurrentMods.vue";
 import Login from "./components/Login.vue";
 import Signup from "./components/Signup.vue";
 import Active from "./components/Active.vue";
@@ -31,9 +30,6 @@ const router = new VueRouter({
     { path: "/bubbledetails", name: "BubbleDetails", component: BubbleDetails},
     {path:"/settings", name:"Settings",component: Settings},
     {path:"/verifiedmods",name:"VerifiedMods", component: VerifiedMods},
-    {path:"/currentmods",name:"CurrentMods", component: CurrentMods},
-
-
   ]
 });
 

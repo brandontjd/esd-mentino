@@ -147,9 +147,6 @@ export default {
       var hour = currentDate.getHours();
       var minutes = currentDate.getMinutes();
 
-      // console.log(currentDate.getDate())
-
-      console.log(currentDate);
       if (month + 1 < 10) {
         month = "0" + (month + 1);
       }
@@ -167,20 +164,12 @@ export default {
       }
 
       var string = year + "-" + month + "-" + date + "T" + hour + ":" + minutes;
-      console.log(string);
-
       this.current_date = string;
     },
 
     // Convert form time to unix
     toTimestamp: function (year, month, day, hour, minute) {
-      // Date.prototype.addHours = function(hours) {
-      //   this.setTime(this.getTime() + (hours*60*60*1000));
-      //   return this;
-      // }
       var datum = new Date(Date.UTC(year, month - 1, day, hour, minute));
-      // datum = datum.addHours(8);
-      console.log(datum.getTime() / 1000);
       return datum.getTime() / 1000;
     },
 
@@ -215,26 +204,21 @@ export default {
           agenda: this.agenda,
           module_code: this.selected_module,
         };
-
-        console.log("SUBMITTED");
+        
         axios
           .post(HOSTNAME + "/api/bubble/one", data, {
             headers: { Authorization: `Bearer ${localStorage.token}` },
           })
-          .then((response) => {
-            this.loading = true;
-            console.log(response);
+          .then(() => {
             alert("Bubble created successfully!!!!");
-            // this.$router.push("/active");
           })
           .catch((err) => {
-            this.loading = true;
-            console.log(err);
+            console.err(err);
             alert("Failed");
+          }).finally(() => {
+            this.loading = true;
+            this.$router.push("/active");
           });
-     
-        this.$router.push("/active");
-        
       }
     },
 
@@ -244,11 +228,7 @@ export default {
     axios
       .get(HOSTNAME + "/api/bubble/module/all", {
         headers: { Authorization: `Bearer ${localStorage.token}` },
-      })
-
-      .then((response) => {
-        console.log(response.data.data);
-        console.log("hi");
+      }).then((response) => {
         this.all_modules = response.data.data;
       });
 

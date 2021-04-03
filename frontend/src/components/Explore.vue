@@ -63,7 +63,6 @@
           <h6 class="card-subtitle mb-2 text-muted">
             Date & Time: {{ timeConverter(selected_bubble.meet_timestamp) }}
           </h6>
-          <!-- <p class="card-text">{{ selected_bubble.agenda }}</p> -->
           <button
             style="margin-top: 10px"
             type="button"
@@ -74,13 +73,28 @@
             details
           </button>
 
-           <span style="color: green;  font-weight:bold; float: right; padding: 15px 0px" 
-            v-if="selected_bubble.mentor_found">Workshop Confirmed</span>
+          <span
+            style="
+              color: green;
+              font-weight: bold;
+              float: right;
+              padding: 15px 0px;
+            "
+            v-if="selected_bubble.mentor_found"
+            >Workshop Confirmed</span
+          >
 
-            <span v-else style="color: red;  font-weight:bold; float: right; padding: 15px 0px">
-              Awaiting Mentor
-            </span>
-
+          <span
+            v-else
+            style="
+              color: red;
+              font-weight: bold;
+              float: right;
+              padding: 15px 0px;
+            "
+          >
+            Awaiting Mentor
+          </span>
         </div>
       </div>
     </div>
@@ -94,16 +108,13 @@
     >
       Create Bubble
     </button>
-
   </div>
 </template>
 
 <script >
 import axios from "axios";
-import NavBar from "./NavBar"
-// Import component
+import NavBar from "./NavBar";
 import Loading from "vue-loading-overlay";
-// Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 import { HOSTNAME } from "../config.js";
 
@@ -117,48 +128,40 @@ export default {
       all_bubbles_selected: "hello",
       moreDetails_bubble_id: "",
       email: "",
-      all_modules:[], 
-      componentKey:0,
-      loading:false,
+      all_modules: [],
+      componentKey: 0,
+      loading: false,
     };
   },
 
-  components:{
+  components: {
     NavBar,
-    Loading
+    Loading,
   },
-  
-  async mounted(){
 
+  async mounted() {
     this.loading = true;
 
     setTimeout(() => {
       this.isLoading = false;
     }, 5000);
 
-    const all_bubbles= await axios.get(
-      HOSTNAME + "/api/bubble/all", {
-        headers: { Authorization: `Bearer ${localStorage.token}` },
-      });
+    const all_bubbles = await axios.get(HOSTNAME + "/api/bubble/all", {
+      headers: { Authorization: `Bearer ${localStorage.token}` },
+    });
 
-        console.log(all_bubbles.data);
-        this.all_bubbles = all_bubbles.data.data.other_bubbles;
-        this.all_bubbles_selected = this.all_bubbles;
+    this.all_bubbles = all_bubbles.data.data.other_bubbles;
+    this.all_bubbles_selected = this.all_bubbles;
 
-        // To get all unique modules
-        for(let bubble of this.all_bubbles){
-          console.log(bubble.module_code);
-          if(this.all_modules.includes(bubble.module_code) == false ){
-            this.all_modules.push(bubble.module_code);
-          }
-        }
-        console.log(this.all_modules);
+    // To get all unique modules
+    for (let bubble of this.all_bubbles) {
+      if (this.all_modules.includes(bubble.module_code) == false) {
+        this.all_modules.push(bubble.module_code);
+      }
+    }
 
-        this.loading = false;
-    
+    this.loading = false;
   },
-
-
 
   created() {
     if (localStorage.token) {
@@ -176,15 +179,13 @@ export default {
   // Details about the task are passed from parent
   props: [],
   methods: {
-
     // to refresh the navbar
     forceRerender() {
-      this.componentKey += 1;  
+      this.componentKey += 1;
     },
 
     filterCards: function () {
       this.all_bubbles_selected = [];
-      console.log("selected", this.selected);
 
       if (this.selected == "all") {
         this.all_bubbles_selected = this.all_bubbles;
@@ -238,18 +239,11 @@ export default {
       return time;
     },
 
-
     moreDetails: function (bubble_id) {
-      // console.log(bubble_id);
       this.moreDetails_bubble_id = bubble_id;
-      console.log(this.moreDetails_bubble_id);
       localStorage.moreDetails_bubble_id = this.moreDetails_bubble_id;
       this.$router.push({ name: "BubbleDetails" });
     },
-    
-
-
-
   },
 };
 </script>

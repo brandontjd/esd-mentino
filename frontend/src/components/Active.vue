@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- links -->
-    <!-- Displaying of cards -->
     <NavBar :key="componentKey" />
     <loading :active.sync="loading"></loading>
 
@@ -17,9 +15,7 @@
         style="display: inline-block; margin: 5px 5px"
         :key="selected_bubble.bubble_id"
       >
-
-      
-        <div class="card" style="width: 19rem;" >
+        <div class="card" style="width: 19rem">
           <div class="card-body">
             <h5 class="card-title">
               {{ selected_bubble.bubble_name }}
@@ -47,23 +43,30 @@
               details
             </button>
 
-            <span style="color: green;  font-weight:bold; float: right; padding: 15px 0px" 
-            v-if="selected_bubble.mentor_found">Workshop Confirmed</span>
+            <span
+              style="
+                color: green;
+                font-weight: bold;
+                float: right;
+                padding: 15px 0px;
+              "
+              v-if="selected_bubble.mentor_found"
+              >Workshop Confirmed</span
+            >
 
-            <span v-else style="color: red;  font-weight:bold; float: right; padding: 15px 0px">
+            <span
+              v-else
+              style="
+                color: red;
+                font-weight: bold;
+                float: right;
+                padding: 15px 0px;
+              "
+            >
               Awaiting Mentor
             </span>
-
-
-
-
           </div>
         </div>
-
-
-
-
-
       </div>
     </div>
 
@@ -82,9 +85,7 @@
 <script >
 import axios from "axios";
 import NavBar from "./NavBar";
-// Import component
 import Loading from "vue-loading-overlay";
-// Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
 import { HOSTNAME } from "../config.js";
 
@@ -93,14 +94,11 @@ export default {
 
   data() {
     return {
-      // all_bubbles: "nihao ma",
-      // selected: "",
       all_bubbles_selected: "hello",
       moreDetails_bubble_id: "",
       email: "",
       componentKey: 0,
       loading: false,
-      
     };
   },
 
@@ -109,24 +107,17 @@ export default {
     Loading,
   },
 
-
   async mounted() {
     this.loading = true;
-
     setTimeout(() => {
       this.isLoading = false;
     }, 5000);
-
-    const all_bubbles_selected = await axios.get(HOSTNAME + "/api/bubble/all",
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.token}`,
-        },
-      }
-    );
-    console.log(all_bubbles_selected.data);
+    const all_bubbles_selected = await axios.get(HOSTNAME + "/api/bubble/all", {
+      headers: {
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+    });
     this.all_bubbles_selected = all_bubbles_selected.data.data.active_bubbles;
-
     this.loading = false;
   },
 
@@ -193,9 +184,7 @@ export default {
     },
 
     moreDetails: function (bubble_id) {
-      // console.log(bubble_id);
       this.moreDetails_bubble_id = bubble_id;
-      console.log(this.moreDetails_bubble_id);
       localStorage.moreDetails_bubble_id = this.moreDetails_bubble_id;
       this.$router.push({ name: "BubbleDetails" });
     },
