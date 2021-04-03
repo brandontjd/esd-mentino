@@ -101,7 +101,7 @@ import TopBar from "./TopBar"
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
-
+import { HOSTNAME } from "../config.js";
 
 export default {
   name: "Signup",
@@ -161,22 +161,22 @@ export default {
       };
       console.log("SUBMITTED");
       axios
-        .post("http://localhost:8000/api/user/signup", data)
+        .post(HOSTNAME + "/api/user/signup", data)
         .then((response) => {
-          this.loading = false;
           var result = response.data;
           console.log(result);
           alert("Account created successfully!");
           this.$router.push("/");
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
+          console.err(err);
           this.email = "";
           this.Name = "";
           this.password1 = "";
           this.password2 = "";
           alert("Error 500: Account already exists!");
+        }).finally(() =>{
+          this.loading = false;
         });
 
       

@@ -39,6 +39,7 @@ import NavBar from "./NavBar";
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
+import { HOSTNAME } from "../config.js";
 
 export default {
   name: "Settings",
@@ -64,7 +65,7 @@ export default {
     }, 5000);
 
     const verified_mods = await axios.get(
-      "http://localhost:8000/api/bubble/module_verification/own",
+      HOSTNAME + "/api/bubble/module_verification/own",
       {
         headers: { Authorization: `Bearer ${localStorage.token}` },
       }

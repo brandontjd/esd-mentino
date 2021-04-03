@@ -80,7 +80,7 @@
         <div class="row">
           <div class="col">
             <h6>File Attachments</h6>
-            <div v-if="bubble_details.files.length > 1">
+            <div v-if="bubble_details.files && bubble_details.files.length > 1">
               <div v-for="file in bubble_details.files" :key="file.blob_url">
                 <li>
                   {{ file.description }}:
@@ -191,6 +191,7 @@ import NavBar from "./NavBar";
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
+import { HOSTNAME } from "../config.js";
 
 export default {
   name: "BubbleDetails",
@@ -219,7 +220,7 @@ export default {
     }
 
     const bubble_details = await axios.get(
-      "http://localhost:8000/api/bubble/one/" + this.bubble_id,
+      HOSTNAME + "/api/bubble/one/" + this.bubble_id,
       {
         headers: { Authorization: `Bearer ${localStorage.token}` },
       }
@@ -313,7 +314,7 @@ export default {
       console.log(typeof formData);
 
       axios
-        .post("http://localhost:8000/api/bubble/upload", formData, {
+        .post(HOSTNAME + "/api/bubble/upload", formData, {
           headers: {
             Authorization: `Bearer ${localStorage.token}`,
 
@@ -358,7 +359,7 @@ export default {
 
       axios
         .post(
-          "http://localhost:8000/api/bubble/join",
+          HOSTNAME + "/api/bubble/join",
           {
             bubble_id: this.bubble_id,
             role: "participant",
@@ -392,7 +393,7 @@ export default {
 
       axios
         .post(
-          "http://localhost:8000/api/bubble/join",
+          HOSTNAME + "/api/bubble/join",
           {
             bubble_id: this.bubble_id,
             role: "mentor",

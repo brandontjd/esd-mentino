@@ -60,7 +60,7 @@ import TopBar from "./TopBar"
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
-
+import { HOSTNAME } from "../config.js";
 
 
 export default {
@@ -87,7 +87,7 @@ export default {
       this.loading = true;
 
       axios
-        .post("http://localhost:8000/api/user/login", {
+        .post(HOSTNAME + "/api/user/login", {
           email: this.email,
           password: this.password,
         })

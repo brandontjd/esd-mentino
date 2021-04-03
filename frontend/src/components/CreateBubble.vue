@@ -96,6 +96,7 @@ import NavBar from "./NavBar";
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
+import { HOSTNAME } from "../config.js";
 
 export default {
   name: "CreateBubble",
@@ -217,7 +218,7 @@ export default {
 
         console.log("SUBMITTED");
         axios
-          .post("http://localhost:8000/api/bubble/one", data, {
+          .post(HOSTNAME + "/api/bubble/one", data, {
             headers: { Authorization: `Bearer ${localStorage.token}` },
           })
           .then((response) => {
@@ -241,7 +242,7 @@ export default {
 
   mounted() {
     axios
-      .get("http://localhost:8000/api/bubble/module/all", {
+      .get(HOSTNAME + "/api/bubble/module/all", {
         headers: { Authorization: `Bearer ${localStorage.token}` },
       })
 

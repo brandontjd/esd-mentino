@@ -143,6 +143,7 @@ import NavBar from "./NavBar";
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
+import { HOSTNAME } from "../config.js";
 
 export default {
   name: "VerifiedMods",
@@ -185,7 +186,7 @@ export default {
 
 
     const verified_mods = await axios.get(
-      "http://localhost:8000/api/bubble/module_verification/own",
+      HOSTNAME + "/api/bubble/module_verification/own",
       {
         headers: { Authorization: `Bearer ${localStorage.token}` },
       }
@@ -194,7 +195,7 @@ export default {
     this.verified_modules = verified_mods.data.data;
 
     const all_mods = await axios.get(
-      "http://localhost:8000/api/bubble/module/all",
+      HOSTNAME + "/api/bubble/module/all",
       {
         headers: { Authorization: `Bearer ${localStorage.token}` },
       }
@@ -230,7 +231,7 @@ export default {
       } else {
         axios
           .put(
-            "http://localhost:8000/api/bubble/module_verification/own",
+            HOSTNAME + "/api/bubble/module_verification/own",
             {
               modules: [
                 {

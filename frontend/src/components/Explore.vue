@@ -78,7 +78,7 @@
             v-if="selected_bubble.mentor_found">Workshop Confirmed</span>
 
             <span v-else style="color: red;  font-weight:bold; float: right; padding: 15px 0px">
-                Pending Confirmation
+              Awaiting Mentor
             </span>
 
         </div>
@@ -105,8 +105,7 @@ import NavBar from "./NavBar"
 import Loading from "vue-loading-overlay";
 // Import stylesheet
 import "vue-loading-overlay/dist/vue-loading.css";
-
-
+import { HOSTNAME } from "../config.js";
 
 export default {
   name: "Explore",
@@ -138,7 +137,7 @@ export default {
     }, 5000);
 
     const all_bubbles= await axios.get(
-      "http://localhost:8000/api/bubble/all", {
+      HOSTNAME + "/api/bubble/all", {
         headers: { Authorization: `Bearer ${localStorage.token}` },
       });
 

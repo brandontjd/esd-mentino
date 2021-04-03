@@ -124,7 +124,8 @@
 
 <script>
 import axios from "axios";
-import NavBar from "./NavBar"
+import NavBar from "./NavBar";
+import { HOSTNAME } from "../config.js";
 
 export default {
   name: "VerifiedMods",
@@ -158,7 +159,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:5000/module_verification/own")
+      .get(HOSTNAME + "/api/module_verification/own")
       .then(
         (response) => (
           (this.verified_modules = response.data.data.module),
@@ -167,7 +168,7 @@ export default {
       );
 
     axios
-      .get("http://localhost:5000/module")
+      .get(HOSTNAME + "/api/module")
       .then(
         (response) => (
           (this.all_modules = response.data.data.module),
@@ -177,8 +178,6 @@ export default {
   },
 
   methods: {
-
-
      // to refresh the navbar
     forceRerender() {
       this.componentKey += 1;  
