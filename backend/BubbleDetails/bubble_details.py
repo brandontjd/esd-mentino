@@ -20,7 +20,7 @@ class Bubble(db.Model):
     create_timestamp = db.Column(db.Integer(), nullable=False)
     meet_timestamp = db.Column(db.Integer(), nullable=False)
     capacity = db.Column(db.Integer(), nullable=False)
-    agenda = db.Column(db.String(255), nullable=False)
+    agenda = db.Column(db.Text, nullable=False)
     module_code = db.Column(db.String(255), nullable=False)
 
     def __init__(self, bubble_id, bubble_name, create_timestamp, meet_timestamp, capacity, agenda,module_code):
