@@ -166,7 +166,7 @@ export default {
           this.$router.push("/");
         })
         .catch((err) => {
-          console.err(err);
+          console.error(err);
           this.email = "";
           this.Name = "";
           this.password1 = "";
@@ -175,8 +175,6 @@ export default {
         }).finally(() =>{
           this.loading = false;
         });
-
-      
       
     },
   },

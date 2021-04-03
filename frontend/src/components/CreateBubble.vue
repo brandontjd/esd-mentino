@@ -213,7 +213,7 @@ export default {
             alert("Bubble created successfully!!!!");
           })
           .catch((err) => {
-            console.err(err);
+            console.error(err);
             alert("Failed");
           }).finally(() => {
             this.loading = true;

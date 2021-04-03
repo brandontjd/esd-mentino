@@ -39,7 +39,6 @@ CREATE TABLE IF NOT EXISTS `Bubble` (
 INSERT INTO `Bubble` (`bubble_id`, `bubble_name`, `create_timestamp`, `meet_timestamp`, `capacity`, `agenda`, `module_code`) VALUES
 (1, 'IS111 Need help with Dictionary', 1619798400, 1619798400, 20, 'Recap on dictionaries', 'IS111'),
 (3, 'IS111 Dictionary Workshop', 1619798400, 1619798400, 20, 'Recap on dictionaries', 'IS111'),
-(4, 'ACCT336 Valuation Workshop', 1619798400, 1619798400, 20, 'Valuation recap', 'ACCT336'),
 (2, 'IS210 Diagram Workshop', 1619798400, 1619798400, 20, 'How to draw workflow diagrams', 'IS210');
 
 -- --------------------------------------------------------
@@ -86,9 +85,10 @@ CREATE TABLE IF NOT EXISTS `BubbleRole` (
 
 INSERT INTO `BubbleRole` (`bubble_id`, `email`, `role`) VALUES
 (1, 'b@gmail.com', 'mentor'),
-(1, 'p@gmail.com', 'participant'),
-(2, 'b@gmail.com', 'participant'),
-(2, 'p@gmail.com', 'mentor');
+(1, 'p@gmail.com', 'owner'),
+(2, 'b@gmail.com', 'owner'),
+(2, 'p@gmail.com', 'mentor'),
+(3, 'p@gmail.com', 'owner');
 
 -- --------------------------------------------------------
 

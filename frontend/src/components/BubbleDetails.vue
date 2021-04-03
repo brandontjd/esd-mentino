@@ -50,7 +50,7 @@
 
           <!-- number of Particpants -->
           <div class="col">
-            <h6>Current Number of Particpants</h6>
+            <h6>Current Number of Participants</h6>
             <div>{{ bubble_details.num_participants }}</div>
           </div>
           <div class="col"></div>
@@ -318,7 +318,7 @@ export default {
           // this.$router.push("/active");
         })
         .catch((err) => {
-          console.err(err);
+          console.error(err);
           alert("Failed upload");
         })
         .finally(() => {
@@ -350,7 +350,7 @@ export default {
           this.$router.push("/active");
         })
         .catch((err) => {
-          console.err(err);
+          console.error(err);
           alert("Failed to join as Mentee!");
         }).finally(() => {
           this.loading = false;
@@ -385,7 +385,7 @@ export default {
           }
         })
         .catch((err) => {
-          console.err(err);
+          console.error(err);
           alert("Failed to join as Mentor!");
         }).finally(() => {
           this.loading = false;

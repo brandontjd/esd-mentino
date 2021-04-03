@@ -97,7 +97,7 @@ export default {
           this.$router.push("/explore");
         })
         .catch((err) => {
-          console.err(err);
+          console.error(err);
           alert("Email/password incorrect!");
         }).finally(() => {
           this.loading = false;
