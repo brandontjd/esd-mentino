@@ -63,6 +63,11 @@
           <h6 class="card-subtitle mb-2 text-muted">
             Date & Time: {{ timeConverter(selected_bubble.meet_timestamp) }}
           </h6>
+          <h6 class="card-subtitle mb-2 text-muted">
+            Capacity: 
+            <span v-if="selected_bubble.num_participants < selected_bubble.capacity">Open</span>
+            <span v-else>Full</span>
+          </h6>
           <button
             style="margin-top: 10px"
             type="button"
