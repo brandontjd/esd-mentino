@@ -6,7 +6,7 @@
       <div>
         <!-- Need to retrieve details from API -->
         <h2 style="border-bottom: 1px solid grey">{{ name }}</h2>
-        <button style="float: right" class="btn btn-secondary">
+        <button style="float: right" class="btn btn-secondary" @click="clickEditPassword">
           Edit Password
         </button>
         <div>Email: {{ email }}</div>
@@ -93,6 +93,9 @@ export default {
     forceRerender() {
       this.componentKey += 1;
     },
+    clickEditPassword() {
+      alert("Not implemented for this project ☹️");
+    }
   },
 };
 </script>
