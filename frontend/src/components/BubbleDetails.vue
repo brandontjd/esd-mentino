@@ -9,7 +9,7 @@
             {{ bubble_details.bubble_name }}
             <span
               v-if="bubble_details.role != 'None'"
-              class="badge badge-warning"
+              class="badge badge-warning capitalizeLetter"
             >
               {{ bubble_details.role }}
             </span>
@@ -395,5 +395,8 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style scoped>
+  .capitalizeLetter {
+    text-transform: capitalize;
+  }
+</style>  
