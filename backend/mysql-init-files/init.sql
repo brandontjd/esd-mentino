@@ -62,9 +62,9 @@ CREATE TABLE IF NOT EXISTS `BubbleFile` (
 --
 
 INSERT INTO `BubbleFile` (`bubble_id`, `timestamp`, `blob_url`,`description`) VALUES
-(1, 1619798400, 'testing.txt','Testfile 1'),
-(1, 1619798402, 'upload.txt','Testfile 3'),
-(2, 1619798401, 'testing.txt','Testfile 2');
+(1, 1619798400, 'https://storage.googleapis.com/end_mentoring_bubble/1b01439349a34d9cb6e5d9b8604c7d62.pdf','Trial Exam'),
+(1, 1619798402, 'https://storage.googleapis.com/end_mentoring_bubble/e5c9b462654745aeb3bb2c597573e19e.pdf','IS111 Course Intro'),
+(2, 1619798401, 'https://storage.googleapis.com/end_mentoring_bubble/3ef45cec0e5a4562bbe3049700490fc4.pdf','Project Details');
 
 -- --------------------------------------------------------
 

@@ -12,6 +12,7 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import werkzeug
 from google.cloud import storage
+import uuid
 
 environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./gcp-credentials.json"
 class BucketConnector:
@@ -137,7 +138,10 @@ def upload_bubble_files():
         }),415
 
     # Upload to GCP Blob
-    blob_status = bc.upload_file(filename,uploaded_file).json
+    blob_status = bc.upload_file(
+        uuid.uuid4().hex + "." + file_ext,
+        uploaded_file
+    ).json
     if blob_status["status"] == "failed":
         return jsonify({
                 "code":503,

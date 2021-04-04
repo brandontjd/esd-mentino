@@ -157,6 +157,7 @@ services:
             context: ./BubbleFile
         environment:
             PYTHON_ENV: PROD
+            BucketName: ${GOOGLE_BUCKET_NAME}
             dbURL: "mysql+mysqlconnector://${MYSQL_USER}:${MYSQL_PASSWORD}@mysqldb:3306/${MYSQL_DATABASE}"
             PYTHONUNBUFFERED: 1
         image: bubble-files:1.0
