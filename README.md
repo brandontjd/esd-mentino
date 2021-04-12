@@ -5,6 +5,18 @@ In university, ​independent learning is key​. However, students can sometime
 
 The Mentoring Bubble aims to bridge this gap by providing a marketplace for students to find Bubbles (workshops) where mentors volunteer to guide students through the module, give them tips and reinforce weak concepts.​
 
+#### 1. Explore Bubbles
+
+![Alt desc](https://raw.githubusercontent.com/brandontjd/esd-mentino/add-diagrams-readme/docs/Explore.jpg)
+
+#### 2. Join or Create as a Mentee
+
+![Alt desc](https://raw.githubusercontent.com/brandontjd/esd-mentino/add-diagrams-readme/docs/Create.jpg)
+
+#### 3. Give back as a Mentor
+
+![Alt desc](https://raw.githubusercontent.com/brandontjd/esd-mentino/add-diagrams-readme/docs/Join.jpg)
+
 ## Run locally
 
 ### 1. Retrieve GCP credentials
