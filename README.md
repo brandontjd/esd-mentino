@@ -7,15 +7,15 @@ The Mentoring Bubble aims to bridge this gap by providing a marketplace for stud
 
 #### 1. Explore Bubbles
 
-![Alt desc](https://raw.githubusercontent.com/brandontjd/esd-mentino/add-diagrams-readme/docs/Explore.jpg)
+![Alt desc](https://raw.githubusercontent.com/brandontjd/esd-mentino/main/docs/Explore.jpg)
 
 #### 2. Join or Create as a Mentee
 
-![Alt desc](https://raw.githubusercontent.com/brandontjd/esd-mentino/add-diagrams-readme/docs/Create.jpg)
+![Alt desc](https://raw.githubusercontent.com/brandontjd/esd-mentino/main/docs/Create.jpg)
 
 #### 3. Give back as a Mentor
 
-![Alt desc](https://raw.githubusercontent.com/brandontjd/esd-mentino/add-diagrams-readme/docs/Join.jpg)
+![Alt desc](https://raw.githubusercontent.com/brandontjd/esd-mentino/main/docs/Join.jpg)
 
 ## Run locally
 
